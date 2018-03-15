@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:warcaby"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Warcaby" Height="720" Width="1280" ResizeMode="NoResize" Icon="img/chess-board.png">
+    <Window.Background>
+        <ImageBrush ImageSource="img/bg.jpg"/>
+    </Window.Background>
     <Grid>
         
     </Grid>

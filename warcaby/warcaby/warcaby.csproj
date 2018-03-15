@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>warcaby.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -92,6 +95,31 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\bg.jpg" />
+    <Resource Include="img\jpg\board.jpg" />
+    <Resource Include="img\jpg\checker-black.jpg" />
+    <Resource Include="img\jpg\checker-selected.jpg" />
+    <Resource Include="img\jpg\checker-white.jpg" />
+    <Resource Include="img\jpg\field-bright.jpg" />
+    <Resource Include="img\jpg\field-dark.jpg" />
+    <Resource Include="img\jpg\move.jpg" />
+    <Resource Include="img\jpg\queen-black.jpg" />
+    <Resource Include="img\jpg\queen-white.jpg" />
+    <Resource Include="img\png\checker-black.png" />
+    <Resource Include="img\png\checker-selected.png" />
+    <Resource Include="img\png\checker-white.png" />
+    <Resource Include="img\png\move.png" />
+    <Resource Include="img\png\pawn.png" />
+    <Resource Include="img\png\queen-black.png" />
+    <Resource Include="img\png\queen-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\chess-board.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="warcaby.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
