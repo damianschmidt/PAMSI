@@ -9,7 +9,43 @@
     <Window.Background>
         <ImageBrush ImageSource="img/bg.jpg"/>
     </Window.Background>
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="480"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontFamily" Value="Raleway"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Foreground" Value="White"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#2d2d2d"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
+               Foreground="White" HorizontalAlignment="Center" Margin="60"/>
+        <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
+        <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
+
+        <Button x:Name="NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
+        <Button x:Name="Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
+        <Button x:Name="Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
     </Grid>
 </Window>

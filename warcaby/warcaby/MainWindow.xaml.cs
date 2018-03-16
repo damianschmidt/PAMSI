@@ -24,5 +24,20 @@ namespace warcaby
         {
             InitializeComponent();
         }
+
+        private void NewGame_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Ranking_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Close_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
