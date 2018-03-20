@@ -6,10 +6,7 @@
         xmlns:local="clr-namespace:warcaby"
         mc:Ignorable="d"
         Title="Warcaby" Height="720" Width="1280" ResizeMode="NoResize" Icon="img/chess-board.png">
-    <Window.Background>
-        <ImageBrush ImageSource="img/bg.jpg"/>
-    </Window.Background>
-
+    
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Width" Value="480"/>
@@ -39,13 +36,43 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
-               Foreground="White" HorizontalAlignment="Center" Margin="60"/>
-        <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
-        <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
+        <TabControl Margin="-3,-30,-3,-3">
+            <TabItem x:Name="Menu"  Visibility="Hidden">
+                <Grid Background="Red">
+                    <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
+                               Foreground="White" HorizontalAlignment="Center" Margin="60"/>
+                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
+                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
 
-        <Button x:Name="NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
-        <Button x:Name="Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
-        <Button x:Name="Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
+                    <Button x:Name="NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
+                    <Button x:Name="Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
+                    <Button x:Name="Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Board" Visibility="Hidden">
+                <Grid Background="Blue">
+                    <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
+                               Foreground="White" HorizontalAlignment="Center" Margin="60"/>
+                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
+                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
+
+                    <Button x:Name="_NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
+                    <Button x:Name="_Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
+                    <Button x:Name="_Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="Ranking" Visibility="Hidden">
+                <Grid Background="Yellow">
+                    <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
+                               Foreground="White" HorizontalAlignment="Center" Margin="60"/>
+                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
+                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
+
+                    <Button x:Name="__NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
+                    <Button x:Name="__Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
+                    <Button x:Name="__Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
