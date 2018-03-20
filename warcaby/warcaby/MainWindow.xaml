@@ -36,9 +36,12 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <TabControl Margin="-3,-30,-3,-3">
+        <TabControl Margin="-3,-10,-3,-3">
             <TabItem x:Name="Menu"  Visibility="Hidden">
-                <Grid Background="Red">
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
+                    </Grid.Background>
                     <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
                                Foreground="White" HorizontalAlignment="Center" Margin="60"/>
                     <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
@@ -47,29 +50,70 @@
                     <Button x:Name="NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
                     <Button x:Name="Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
                     <Button x:Name="Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
+                    <Label Content="ver 1.0.0" Foreground="White" HorizontalAlignment="Right" 
+                           FontFamily="Raleway" FontSize="14" FontWeight="Light"  VerticalAlignment="Bottom"/>
+
                 </Grid>
             </TabItem>
             <TabItem x:Name="Board" Visibility="Hidden">
-                <Grid Background="Blue">
-                    <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
-                               Foreground="White" HorizontalAlignment="Center" Margin="60"/>
-                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
-                    <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <Image Source=".\img\jpg\board.jpg" Height="640" Width="640" Margin="20 0 0 0" HorizontalAlignment="Left"/>
+                    <Grid Cursor="Hand">
+                        <Button Height="78" Width="78" Margin="28 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="184 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="340 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="496 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
 
-                    <Button x:Name="_NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
-                    <Button x:Name="_Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
-                    <Button x:Name="_Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
+                        <Button Height="78" Width="78" Margin="106 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="262 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="418 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="574 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+
+                        <Button Height="78" Width="78" Margin="28 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="184 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="340 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="496 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+                    </Grid>
+
                 </Grid>
             </TabItem>
             <TabItem x:Name="Ranking" Visibility="Hidden">
-                <Grid Background="Yellow">
-                    <Label Content="WARCABY" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
+                    </Grid.Background>
+                    <Label Content="RANKING" FontFamily="Raleway" FontSize="160" FontWeight="Bold" 
                                Foreground="White" HorizontalAlignment="Center" Margin="60"/>
                     <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="1050,90,145,472.4"/>
                     <Image Source=".\img\png\pawn.png" Height="128" Width="70" Margin="145,90,1050,472.4"/>
 
-                    <Button x:Name="__NewGame_Button" Content="NOWA GRA" Margin="396.8,310.2,396.8,310.2" Click="NewGame_Button_Click"/>
-                    <Button x:Name="__Ranking_Button" Content="RANKING" Margin="396.8,405.2,396.8,215.2" Click="Ranking_Button_Click"/>
                     <Button x:Name="__Close_Button" Content="ZAMKNIJ" Margin="396.8,500.2,396.8,120.2" Click="Close_Button_Click"/>
                 </Grid>
             </TabItem>
