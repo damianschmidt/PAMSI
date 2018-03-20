@@ -60,8 +60,12 @@
                     <Grid.Background>
                         <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
-                    <Image Source=".\img\jpg\board.jpg" Height="640" Width="640" Margin="20 0 0 0" HorizontalAlignment="Left"/>
+                    <Image Source=".\img\jpg\board.jpg" Height="640" Width="640" Margin="20 5 0 0" HorizontalAlignment="Left"/>
+                    
+                    
                     <Grid Cursor="Hand">
+                        
+                        <!-- Black checkers -->
                         <Button Height="78" Width="78" Margin="28 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <Image Source=".\img\jpg\checker-black.jpg"/>
                         </Button>
@@ -99,6 +103,73 @@
                         </Button>
                         <Button Height="78" Width="78" Margin="496 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
                             <Image Source=".\img\jpg\checker-black.jpg"/>
+                        </Button>
+
+                        <!-- Free fields -->
+                        <Button Height="78" Width="78" Margin="106 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="262 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="418 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="574 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+
+                        <Button Height="78" Width="78" Margin="28 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="184 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="340 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="496 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\field-dark.jpg"/>
+                        </Button>
+
+                        <!-- White checkers -->
+                        <Button Height="78" Width="78" Margin="106 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="262 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="418 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="574 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+
+                        <Button Height="78" Width="78" Margin="28 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="184 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="340 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="496 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+
+                        <Button Height="78" Width="78" Margin="106 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="262 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="418 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
+                        </Button>
+                        <Button Height="78" Width="78" Margin="574 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <Image Source=".\img\jpg\checker-white.jpg"/>
                         </Button>
                     </Grid>
 
