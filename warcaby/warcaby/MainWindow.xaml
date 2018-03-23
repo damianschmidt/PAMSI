@@ -38,7 +38,7 @@
     <Grid>
         <TabControl Margin="-3,-10,-3,-3">
             <TabItem x:Name="Menu"  Visibility="Hidden">
-                <Grid>
+                <Grid x:Name="MenuGrid">
                     <Grid.Background>
                         <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
@@ -56,14 +56,14 @@
                 </Grid>
             </TabItem>
             <TabItem x:Name="Board" Visibility="Hidden">
-                <Grid>
+                <Grid x:Name="BoardGrid" Loaded="Window_Loaded">
                     <Grid.Background>
                         <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
                     <Image Source=".\img\jpg\board.jpg" Height="640" Width="640" Margin="20 5 0 0" HorizontalAlignment="Left"/>
                     
                     
-                    <Grid Cursor="Hand">
+                    <Grid x:Name="FieldsGrid" Cursor="Hand">
                         
                         <!-- Black checkers -->
                         <Button Height="78" Width="78" Margin="28 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -175,7 +175,7 @@
                     
                     <Label Content="CZAS GRY" FontSize="36" FontFamily="Raleway" FontWeight="Bold" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,140,225,0" VerticalAlignment="Top"/>
-                    <Label Content="21:37" FontSize="36" FontFamily="Open Sans" FontWeight="Regular" Foreground="White" 
+                    <Label x:Name="timer" Content="00:00" FontSize="36" FontFamily="Open Sans" FontWeight="Regular" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,185,260,0" VerticalAlignment="Top"/>
                     <Label Content="WYNIK" FontSize="36" FontFamily="Raleway" FontWeight="Bold" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,320,250,0" VerticalAlignment="Top"/>
@@ -188,12 +188,12 @@
                     <Label Content="1" FontSize="24" FontFamily="Open Sans" FontWeight="Light" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,410,190,0" VerticalAlignment="Top"/>
 
-                    <Button Content="RESTART" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 70 120"/>
+                    <Button Content="RESTART" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 70 120" Click="Restart_Button_Click"/>
 
                 </Grid>
             </TabItem>
             <TabItem x:Name="Ranking" Visibility="Hidden">
-                <Grid>
+                <Grid x:Name="RankGrid">
                     <Grid.Background>
                         <ImageBrush ImageSource=".\img\bg.jpg" Stretch="UniformToFill"/>
                     </Grid.Background>
