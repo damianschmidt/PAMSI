@@ -123,5 +123,8 @@
   <ItemGroup>
     <Resource Include="warcaby.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\png\rank-table.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
