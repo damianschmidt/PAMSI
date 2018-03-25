@@ -66,111 +66,42 @@
                     <Grid x:Name="FieldsGrid" Cursor="Hand">
                         
                         <!-- Black checkers -->
-                        <Button Height="78" Width="78" Margin="28 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="184 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="340 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="496 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-
-                        <Button Height="78" Width="78" Margin="106 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="262 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="418 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="574 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-
-                        <Button Height="78" Width="78" Margin="28 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="184 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="340 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="496 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-black.jpg"/>
-                        </Button>
+                        <Button x:Name="B1" Height="78" Width="78" Margin="28 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B2" Height="78" Width="78" Margin="184 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B3" Height="78" Width="78" Margin="340 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B4" Height="78" Width="78" Margin="496 33 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B5" Height="78" Width="78" Margin="106 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B6" Height="78" Width="78" Margin="262 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B7" Height="78" Width="78" Margin="418 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B8" Height="78" Width="78" Margin="574 111 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B9" Height="78" Width="78" Margin="28 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B10" Height="78" Width="78" Margin="184 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B11"  Height="78" Width="78" Margin="340 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B12" Height="78" Width="78" Margin="496 189 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
                         <!-- Free fields -->
-                        <Button Height="78" Width="78" Margin="106 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="262 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="418 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="574 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-
-                        <Button Height="78" Width="78" Margin="28 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="184 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="340 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="496 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\field-dark.jpg"/>
-                        </Button>
-
+                        <Button x:Name="B13" Height="78" Width="78" Margin="106 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B14" Height="78" Width="78" Margin="262 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B15" Height="78" Width="78" Margin="418 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B16" Height="78" Width="78" Margin="574 267 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B17" Height="78" Width="78" Margin="28 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B18" Height="78" Width="78" Margin="184 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B19" Height="78" Width="78" Margin="340 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B20" Height="78" Width="78" Margin="496 345 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        
                         <!-- White checkers -->
-                        <Button Height="78" Width="78" Margin="106 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="262 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="418 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="574 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-
-                        <Button Height="78" Width="78" Margin="28 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="184 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="340 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="496 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-
-                        <Button Height="78" Width="78" Margin="106 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="262 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="418 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
-                        <Button Height="78" Width="78" Margin="574 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <Image Source=".\img\jpg\checker-white.jpg"/>
-                        </Button>
+                        <Button x:Name="B21" Height="78" Width="78" Margin="106 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B22" Height="78" Width="78" Margin="262 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B23" Height="78" Width="78" Margin="418 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B24" Height="78" Width="78" Margin="574 423 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B25" Height="78" Width="78" Margin="28 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B26" Height="78" Width="78" Margin="184 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B27" Height="78" Width="78" Margin="340 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B28" Height="78" Width="78" Margin="496 501 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B29" Height="78" Width="78" Margin="106 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B30" Height="78" Width="78" Margin="262 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B31" Height="78" Width="78" Margin="418 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="B32" Height="78" Width="78" Margin="574 579 0 0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </Grid>
                     
                     <Label Content="CZAS GRY" FontSize="36" FontFamily="Raleway" FontWeight="Bold" Foreground="White" 
@@ -183,9 +114,9 @@
                            HorizontalAlignment="Right" Margin="0,380,380,0" VerticalAlignment="Top"/>
                     <Label Content="KOMPUTER" FontSize="24" FontFamily="Raleway" FontWeight="Light" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,380,140,0" VerticalAlignment="Top"/>
-                    <Label Content="2" FontSize="24" FontFamily="Open Sans" FontWeight="Light" Foreground="White" 
+                    <Label x:Name="PlayerScore" Content="2" FontSize="24" FontFamily="Open Sans" FontWeight="Light" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,410,410,0" VerticalAlignment="Top"/>
-                    <Label Content="1" FontSize="24" FontFamily="Open Sans" FontWeight="Light" Foreground="White" 
+                    <Label x:Name="ComputerScore"  Content="1" FontSize="24" FontFamily="Open Sans" FontWeight="Light" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,410,190,0" VerticalAlignment="Top"/>
 
                     <Button Content="RESTART" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 70 120" Click="Restart_Button_Click"/>
