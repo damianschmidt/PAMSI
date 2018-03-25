@@ -130,5 +130,15 @@ namespace warcaby
             NewGame();
             stopWatch.Restart();
         }
+
+
+        //Ranking's functions
+
+        private void Menu_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Menu.IsSelected = true;
+        }
+
+
     }
 }

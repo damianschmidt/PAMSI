@@ -203,7 +203,7 @@
                            HorizontalAlignment="Right" Margin="0,510,90,0" VerticalAlignment="Top"/>
 
 
-                    <Button Content="MENU" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 40"/>
+                    <Button Content="MENU" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 40" Click="Menu_Button_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
