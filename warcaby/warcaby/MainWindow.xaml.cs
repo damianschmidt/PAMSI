@@ -20,6 +20,11 @@ namespace warcaby
         private Stopwatch stopWatch = new Stopwatch();
         private string currentTime = string.Empty;
         private FieldType[,] boardStatus;
+        private bool selected = false;
+        private int selCol = 0;
+        private int selRow = 0;
+        //private Button[,] buttonName = new Button[,] { { B1, B2, B3, B4 }, { B5, B6, B7, B8 }, { B9, B10, B11, B12 }, { B13, B14, B15, B16 },
+        //                                              { B17, B18, B19, B20 }, { B21, B22, B23, B24 }, { B25, B26, B27, B28 }, { B29, B30, B31, B32 }};
 
         public MainWindow()
         {
@@ -28,6 +33,9 @@ namespace warcaby
 
         private void NewGame()
         {
+            //Set stopwatch to 0
+            timer.Content = "00:00";
+
             //Create a new blank array of free cells
             boardStatus = new FieldType[8,4];
 
@@ -80,8 +88,15 @@ namespace warcaby
             });
 
             //init stopwatch
-            dispatcherTimer.Start();
-            stopWatch.Start();
+            if (stopWatch.IsRunning)
+            {
+                stopWatch.Restart();
+            }
+            else
+            {
+                dispatcherTimer.Start();
+                stopWatch.Start();
+            }
 
             //set scores to 0
             PlayerScore.Content = "0";
@@ -107,7 +122,7 @@ namespace warcaby
 
 
         //Board's functions
-
+        #region StopWatch functions
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
@@ -124,11 +139,49 @@ namespace warcaby
                 timer.Content = currentTime;
             }
         }
+        #endregion
 
         private void Restart_Button_Click(object sender, RoutedEventArgs e)
         {
             NewGame();
             stopWatch.Restart();
+        }
+
+        private void Board_Button_Click(object sender, RoutedEventArgs e)
+        {
+            //Cast the sender tu a button
+            var button = (Button)sender;
+            //Find the buttons position in the array
+            var column = Grid.GetColumn(button);
+            var row = Grid.GetRow(button);
+
+            if((boardStatus[row, column] == FieldType.WhitePawn) && selected == false)
+            {
+                Uri resourceUri = new Uri(".\\img\\jpg\\checker-selected.jpg", UriKind.Relative);
+                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
+                BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                var brush = new ImageBrush();
+                brush.ImageSource = temp;
+                button.Background = brush;
+
+                selCol = column;
+                selRow = row;
+                selected = true;
+                boardStatus[row, column] = FieldType.SelectedPawn;
+            }
+            else if (boardStatus[row, column] == FieldType.SelectedPawn)
+            {
+                return;
+            }
+            else
+            {
+                Uri resourceUri = new Uri(".\\img\\jpg\\checker-black.jpg", UriKind.Relative);
+                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
+                BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+                var brush = new ImageBrush();
+                brush.ImageSource = temp;
+                button.Background = brush;
+            }
         }
 
 
