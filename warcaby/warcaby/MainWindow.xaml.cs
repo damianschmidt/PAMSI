@@ -53,6 +53,9 @@ namespace warcaby
                 }
             }
 
+            //reset selected button property
+            selected = false;
+
             //Iterate every button on the grid
             int k = 1;
             FieldsGrid.Children.Cast<Button>().ToList().ForEach(button =>
