@@ -23,12 +23,13 @@ namespace warcaby
         private bool selected = false;
         private int selCol = 0;
         private int selRow = 0;
-        //private Button[,] buttonName = new Button[,] { { B1, B2, B3, B4 }, { B5, B6, B7, B8 }, { B9, B10, B11, B12 }, { B13, B14, B15, B16 },
-        //                                              { B17, B18, B19, B20 }, { B21, B22, B23, B24 }, { B25, B26, B27, B28 }, { B29, B30, B31, B32 }};
+        private Button[,] buttonName;
 
         public MainWindow()
         {
             InitializeComponent();
+            //Set values of of ButtonArray
+            buttonName = new Button[,] { { B1, B2, B3, B4 }, { B5, B6, B7, B8 }, { B9, B10, B11, B12 }, { B13, B14, B15, B16 }, { B17, B18, B19, B20 }, { B21, B22, B23, B24 }, { B25, B26, B27, B28 }, { B29, B30, B31, B32 } };
         }
 
         private void NewGame()
@@ -62,31 +63,16 @@ namespace warcaby
             {
                 if (k < 13)
                 {
-                    Uri resourceUri = new Uri(".\\img\\jpg\\checker-black.jpg", UriKind.Relative);
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-                    var brush = new ImageBrush();
-                    brush.ImageSource = temp;
-                    button.Background = brush;
+                    LoadPicture(".\\img\\jpg\\checker-black.jpg", button);
                     k++;
                 }
                 else if (k < 21)
                 {
-                    Uri resourceUri = new Uri(".\\img\\jpg\\field-dark.jpg", UriKind.Relative);
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-                    var brush = new ImageBrush();
-                    brush.ImageSource = temp;
-                    button.Background = brush;
+                    LoadPicture(".\\img\\jpg\\field-dark.jpg", button);
                     k++;
                 } else
                 {
-                    Uri resourceUri = new Uri(".\\img\\jpg\\checker-white.jpg", UriKind.Relative);
-                    StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-                    BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-                    var brush = new ImageBrush();
-                    brush.ImageSource = temp;
-                    button.Background = brush;
+                    LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
                 }
             });
 
@@ -158,33 +144,40 @@ namespace warcaby
             var column = Grid.GetColumn(button);
             var row = Grid.GetRow(button);
 
-            if((boardStatus[row, column] == FieldType.WhitePawn) && selected == false)
+            if((boardStatus[row, column] == FieldType.WhitePawn) && (selected == false))
             {
-                Uri resourceUri = new Uri(".\\img\\jpg\\checker-selected.jpg", UriKind.Relative);
-                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-                BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-                var brush = new ImageBrush();
-                brush.ImageSource = temp;
-                button.Background = brush;
+                LoadPicture(".\\img\\jpg\\checker-selected.jpg", button);
 
                 selCol = column;
                 selRow = row;
                 selected = true;
                 boardStatus[row, column] = FieldType.SelectedPawn;
             }
+            else if ((boardStatus[row, column] == FieldType.WhitePawn) && (selected == true))
+            {
+                LoadPicture(".\\img\\jpg\\checker-selected.jpg", button);
+                boardStatus[row, column] = FieldType.SelectedPawn;
+
+                LoadPicture(".\\img\\jpg\\checker-white.jpg", buttonName[selRow, selCol]);
+                boardStatus[selRow, selCol] = FieldType.WhitePawn;
+
+                selRow = row;
+                selCol = column;
+            }
             else if (boardStatus[row, column] == FieldType.SelectedPawn)
             {
                 return;
             }
-            else
-            {
-                Uri resourceUri = new Uri(".\\img\\jpg\\checker-black.jpg", UriKind.Relative);
-                StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
-                BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
-                var brush = new ImageBrush();
-                brush.ImageSource = temp;
-                button.Background = brush;
-            }
+        }
+
+        private void LoadPicture(string source, Button button)
+        {
+            Uri resourceUri = new Uri(source, UriKind.Relative);
+            StreamResourceInfo streamInfo = Application.GetResourceStream(resourceUri);
+            BitmapFrame temp = BitmapFrame.Create(streamInfo.Stream);
+            var brush = new ImageBrush();
+            brush.ImageSource = temp;
+            button.Background = brush;
         }
 
 
