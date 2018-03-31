@@ -11,6 +11,7 @@
         WhitePawn,
         BlackQueen,
         WhiteQueen,
+        SelectedQueen,
         SelectedPawn,
         Move
     }
