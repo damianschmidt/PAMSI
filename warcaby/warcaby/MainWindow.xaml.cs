@@ -172,6 +172,22 @@ namespace warcaby
             {
                 return;
             }
+            else if (boardStatus[row, column] == FieldType.Move)
+            {
+                MoveWhite(button, row, column);
+            }
+        }
+
+        private void MoveWhite(Button button, int row, int column)
+        {
+            RemoveMove();
+            LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
+            boardStatus[row, column] = FieldType.WhitePawn;
+
+            LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
+            boardStatus[selRow, selCol] = FieldType.Free;
+
+            selected = false;
         }
 
         private void CheckFields(int row, int column)
@@ -205,25 +221,25 @@ namespace warcaby
             }
             #endregion
 
-            if((top == true) && (leftside == true))
+            if ((top == true) && (leftside == true))
             {
                 return; //Temporary do nothing cause not queen condition
             }
-            else if(top == true)
+            else if (top == true)
             {
                 return; //Temporary do nothing cause not queen condition
             }
-            else if((bottom == true) && (rightside == true))
+            else if ((bottom == true) && (rightside == true))
             {
-                if(boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (boardStatus[(row - 1), (column)] == FieldType.Free)
                 {
                     boardStatus[(row - 1), (column)] = FieldType.Move;
                     LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
                 }
             }
-            else if(bottom == true)
+            else if (bottom == true)
             {
-                if(boardStatus[(row -1), (column)] == FieldType.Free)
+                if (boardStatus[(row - 1), (column)] == FieldType.Free)
                 {
                     boardStatus[(row - 1), (column)] = FieldType.Move;
                     LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
@@ -234,7 +250,7 @@ namespace warcaby
                     LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
                 }
             }
-            else if((leftside == true) && (even == true))
+            else if ((leftside == true) && (even == true))
             {
                 if (boardStatus[(row - 1), (column)] == FieldType.Free)
                 {
@@ -255,7 +271,7 @@ namespace warcaby
                     LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
                 }
             }
-            else if((rightside == true) && (odd == true))
+            else if ((rightside == true) && (odd == true))
             {
                 if (boardStatus[(row - 1), (column)] == FieldType.Free)
                 {
@@ -276,7 +292,20 @@ namespace warcaby
                     LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
                 }
             }
-            else
+            else if (odd == true)
+            {
+                if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                {
+                    boardStatus[(row - 1), (column - 1)] = FieldType.Move;
+                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                }
+                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                {
+                    boardStatus[(row - 1), (column)] = FieldType.Move;
+                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                }
+            }
+            else if (even == true)
             {
                 if (boardStatus[(row - 1), (column)] == FieldType.Free)
                 {
@@ -305,8 +334,6 @@ namespace warcaby
                 }
             }
         }
-
-        //private void 
 
         private void LoadPicture(string source, Button button)
         {
