@@ -19,7 +19,8 @@ namespace warcaby
         private Stopwatch stopWatch = new Stopwatch();
         private string currentTime = string.Empty;
         private FieldType[,] boardStatus;
-        private bool selected = false;
+        private bool selectedPawn = false;
+        private bool selectedQueen = false;
         private int selCol = 0;
         private int selRow = 0;
         private Button[,] buttonName;
@@ -54,7 +55,8 @@ namespace warcaby
             }
 
             //reset selected button property
-            selected = false;
+            selectedPawn = false;
+            selectedQueen = false;
 
             //Iterate every button on the grid
             int k = 1;
@@ -142,19 +144,21 @@ namespace warcaby
             //Find the buttons position in the array
             var column = Grid.GetColumn(button);
             var row = Grid.GetRow(button);
-            
-            if((boardStatus[row, column] == FieldType.WhitePawn) && (selected == false))
+
+            //Select and Move Pawn
+            #region Select and Move Pawn
+            if ((boardStatus[row, column] == FieldType.WhitePawn) && (selectedPawn == false))
             {
                 RemoveMove();
                 LoadPicture(".\\img\\jpg\\checker-selected.jpg", button);
-                CheckFields(row, column);
 
                 selCol = column;
                 selRow = row;
-                selected = true;
+                selectedPawn = true;
                 boardStatus[row, column] = FieldType.SelectedPawn;
+                CheckFields(row, column);
             }
-            else if ((boardStatus[row, column] == FieldType.WhitePawn) && (selected == true))
+            else if ((boardStatus[row, column] == FieldType.WhitePawn) && (selectedPawn == true))
             {
                 RemoveMove();
                 LoadPicture(".\\img\\jpg\\checker-selected.jpg", button);
@@ -172,10 +176,48 @@ namespace warcaby
             {
                 return;
             }
-            else if (boardStatus[row, column] == FieldType.Move)
+            else if ((boardStatus[row, column] == FieldType.Move) && (selectedPawn == true))
             {
                 MoveWhite(button, row, column);
             }
+            #endregion
+
+            //Select and Move Queen
+            #region Select and Move Queen
+            if ((boardStatus[row, column] == FieldType.WhiteQueen) && (selectedQueen == false))
+            {
+                RemoveMove();
+                LoadPicture(".\\img\\jpg\\queen-selected.jpg", button);
+
+                selCol = column;
+                selRow = row;
+                selectedQueen = true;
+                boardStatus[row, column] = FieldType.SelectedQueen;
+                CheckFields(row, column);
+            }
+            else if ((boardStatus[row, column] == FieldType.WhiteQueen) && (selectedQueen == true))
+            {
+                RemoveMove();
+                LoadPicture(".\\img\\jpg\\queen-selected.jpg", button);
+                boardStatus[row, column] = FieldType.SelectedQueen;
+
+                LoadPicture(".\\img\\jpg\\queen-white.jpg", buttonName[selRow, selCol]);
+                boardStatus[selRow, selCol] = FieldType.WhiteQueen;
+
+                CheckFields(row, column);
+
+                selRow = row;
+                selCol = column;
+            }
+            else if (boardStatus[row, column] == FieldType.SelectedQueen)
+            {
+                return;
+            }
+            else if ((boardStatus[row, column] == FieldType.Move) && (selectedQueen == true))
+            {
+                MoveQueen(button, row, column);
+            }
+            #endregion
         }
 
         private void MoveWhite(Button button, int row, int column)
@@ -187,7 +229,19 @@ namespace warcaby
             LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
             boardStatus[selRow, selCol] = FieldType.Free;
 
-            selected = false;
+            selectedPawn = false;
+        }
+
+        private void MoveQueen(Button button, int row, int column)
+        {
+            RemoveMove();
+            LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
+            boardStatus[row, column] = FieldType.WhiteQueen;
+
+            LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
+            boardStatus[selRow, selCol] = FieldType.Free;
+
+            selectedQueen = false;
         }
 
         private void CheckFields(int row, int column)
@@ -223,99 +277,259 @@ namespace warcaby
 
             if ((top == true) && (leftside == true))
             {
-                return; //Temporary do nothing cause not queen condition
+                if (selectedQueen == true)
+                {
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
+                }
             }
             else if (top == true)
             {
-                return; //Temporary do nothing cause not queen condition
+                if (selectedQueen == true)
+                {
+                    if (boardStatus[(row + 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column - 1)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
+                }
             }
             else if ((bottom == true) && (rightside == true))
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
-                {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                if (selectedPawn == true || selectedQueen == true) {
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
                 }
             }
             else if (bottom == true)
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedPawn == true || selectedQueen == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
-                }
-                if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
-                {
-                    boardStatus[(row - 1), (column + 1)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
                 }
             }
             else if ((leftside == true) && (even == true))
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedPawn == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
                 }
-                if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                if (selectedQueen == true)
                 {
-                    boardStatus[(row - 1), (column + 1)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
+                    if (boardStatus[(row + 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column + 1)]);
+                    }
                 }
             }
             else if (leftside == true)
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedPawn == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                }
+                if (selectedQueen == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
                 }
             }
             else if ((rightside == true) && (odd == true))
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedPawn == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    }
                 }
-                if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                if (selectedQueen == true)
                 {
-                    boardStatus[(row - 1), (column - 1)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
+                    if (boardStatus[(row + 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column - 1)]);
+                    }
                 }
             }
             else if (rightside == true)
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedPawn == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                }
+                if (selectedQueen == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
                 }
             }
             else if (odd == true)
             {
-                if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                if (selectedPawn == true)
                 {
-                    boardStatus[(row - 1), (column - 1)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    }
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
                 }
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedQueen == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    }
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row + 1), (column - 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column - 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column - 1)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
                 }
             }
             else if (even == true)
             {
-                if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                if (selectedPawn == true)
                 {
-                    boardStatus[(row - 1), (column)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
                 }
-                if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                if (selectedQueen == true)
                 {
-                    boardStatus[(row - 1), (column + 1)] = FieldType.Move;
-                    LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column)]);
+                    }
+                    if (boardStatus[(row + 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row + 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row + 1), (column + 1)]);
+                    }
                 }
             }
         }
@@ -345,14 +559,11 @@ namespace warcaby
             button.Background = brush;
         }
 
-
         //Ranking's functions
 
         private void Menu_Button_Click(object sender, RoutedEventArgs e)
         {
             Menu.IsSelected = true;
         }
-
-
     }
 }

@@ -127,5 +127,11 @@
   <ItemGroup>
     <Resource Include="img\png\rank-table.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\jpg\queen-selected.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\png\queen-selected.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
