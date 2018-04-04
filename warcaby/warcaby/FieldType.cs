@@ -13,6 +13,7 @@
         WhiteQueen,
         SelectedQueen,
         SelectedPawn,
+        HitMove,
         Move
     }
 }

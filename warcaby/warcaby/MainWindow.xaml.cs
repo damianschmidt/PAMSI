@@ -23,6 +23,7 @@ namespace warcaby
         private bool selectedQueen = false;
         private int selCol = 0;
         private int selRow = 0;
+        private int playerScore = 0;
         private Button[,] buttonName;
 
         public MainWindow()
@@ -92,6 +93,13 @@ namespace warcaby
             PlayerScore.Content = "0";
             ComputerScore.Content = "0";
 
+          
+            //for (var j = 0; j < 4; j++)                           //part of code to test game
+            //{
+            //    boardStatus[5, j] = FieldType.BlackPawn;
+            //    LoadPicture(".\\img\\jpg\\checker-black.jpg", buttonName[5,j]);
+            //}
+            
         }
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
@@ -180,6 +188,12 @@ namespace warcaby
             {
                 MoveWhite(button, row, column);
             }
+            else if ((boardStatus[row, column] == FieldType.HitMove) && (selectedPawn == true))
+            {
+                MoveWhite(button, row, column);
+                HitPawn(row, column);
+                Score();
+            }
             #endregion
 
             //Select and Move Queen
@@ -232,6 +246,45 @@ namespace warcaby
             selectedPawn = false;
         }
 
+        private void HitPawn(int row, int column)
+        {
+            if (selRow % 2 == 1)
+            {
+                if ((selCol - column) < 0)
+                {
+                    LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[(row + 1), column]);
+                    boardStatus[(row + 1), column] = FieldType.Free;
+                    playerScore++;
+                }
+                else
+                {
+                    LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[(row + 1), selCol]);
+                    boardStatus[(row + 1), selCol] = FieldType.Free;
+                    playerScore++;
+                }
+            }
+            else
+            {
+                if ((selCol - column) < 0)
+                {
+                    LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[(row + 1), selCol]);
+                    boardStatus[(row + 1), selCol] = FieldType.Free;
+                    playerScore++;
+                }
+                else
+                {
+                    LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[(row + 1), column]);
+                    boardStatus[(row + 1), column] = FieldType.Free;
+                    playerScore++;
+                }
+            }
+        }
+
+        private void Score()
+        {
+            PlayerScore.Content = playerScore.ToString();
+        }
+
         private void MoveQueen(Button button, int row, int column)
         {
             RemoveMove();
@@ -246,12 +299,16 @@ namespace warcaby
 
         private void CheckFields(int row, int column)
         {
-        bool top = false, bottom = false, leftside = false, rightside = false, even = false, odd = false;
+        bool top = false, bottom = false, leftside = false, rightside = false, even = false, odd = false, almostTop = false;
 
             #region checking position
             if (row == 0)
             {
                 top = true;
+            }
+            if (row == 1)
+            {
+                almostTop = true;
             }
             if(row == 7)
             {
@@ -310,6 +367,39 @@ namespace warcaby
                         boardStatus[(row - 1), (column)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
                     }
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column-1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column -1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                }
+            }
+            else if (bottom == true && leftside == true)
+            {
+                if (selectedPawn == true || selectedQueen == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.Free)
+                    {
+                        boardStatus[(row - 1), (column + 1)] = FieldType.Move;
+                        LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
+
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
                 }
             }
             else if (bottom == true)
@@ -326,6 +416,23 @@ namespace warcaby
                         boardStatus[(row - 1), (column + 1)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
                     }
+
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
                 }
             }
             else if ((leftside == true) && (even == true))
@@ -341,6 +448,22 @@ namespace warcaby
                     {
                         boardStatus[(row - 1), (column + 1)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
+                    }
+
+                    if ((boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen))
+                    {
+                        if(almostTop == true)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column + 1)]);
+                            }
+                        }
                     }
                 }
                 if (selectedQueen == true)
@@ -376,6 +499,14 @@ namespace warcaby
                         boardStatus[(row - 1), (column)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
                     }
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
                 }
                 if (selectedQueen == true)
                 {
@@ -404,6 +535,15 @@ namespace warcaby
                     {
                         boardStatus[(row - 1), (column - 1)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column - 1)]);
+                    }
+
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column - 1)]);
+                        }
                     }
                 }
                 if (selectedQueen == true)
@@ -439,6 +579,22 @@ namespace warcaby
                         boardStatus[(row - 1), (column)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
                     }
+
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if(almostTop == true)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column - 1)]);
+                            }
+                        }
+                    }
                 }
                 if (selectedQueen == true)
                 {
@@ -467,6 +623,23 @@ namespace warcaby
                     {
                         boardStatus[(row - 1), (column)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column)]);
+                    }
+
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column + 1)]);
+                        }
                     }
                 }
                 if (selectedQueen == true)
@@ -507,6 +680,37 @@ namespace warcaby
                         boardStatus[(row - 1), (column + 1)] = FieldType.Move;
                         LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 1), (column + 1)]);
                     }
+
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackPawn)
+                    {
+                        if (almostTop == true)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column - 1)]);
+                            }
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop == true)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(".\\img\\jpg\\move.jpg", buttonName[(row - 2), (column + 1)]);
+                            }
+                        }
+                    }
                 }
                 if (selectedQueen == true)
                 {
@@ -540,7 +744,7 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    if(boardStatus[i,j] == FieldType.Move)
+                    if(boardStatus[i,j] == FieldType.Move || boardStatus[i, j] == FieldType.HitMove)
                     {
                         boardStatus[i, j] = FieldType.Free;
                         LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[i, j]);
