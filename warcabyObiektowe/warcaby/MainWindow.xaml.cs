@@ -62,7 +62,7 @@ namespace warcaby
             var column = Grid.GetColumn(button);
             var row = Grid.GetRow(button);
 
-            game.Select(button, row, column);
+            game.Action(button, row, column);
         }
 
         //Stopwatch

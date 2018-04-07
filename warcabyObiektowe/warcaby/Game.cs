@@ -32,9 +32,10 @@ namespace warcaby
             board.InitBoard();
         }
 
-        public void Select(Button button, int row, int column)
+        public void Action(Button button, int row, int column)
         {
-            board.SelectWhitePawn(button, row, column);
+            board.Select(button, row, column);
+            board.Move(button, row, column);
         }
     }
 }
