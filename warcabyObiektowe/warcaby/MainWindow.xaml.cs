@@ -14,12 +14,13 @@ namespace warcaby
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
         private Stopwatch stopWatch = new Stopwatch();
         private string currentTime = string.Empty;
-        private Game G;
+        private Game game;
 
 
         public MainWindow()
         {
             InitializeComponent();
+            game = new Game(this);
         }
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
@@ -28,8 +29,7 @@ namespace warcaby
 
             //Init game
             Stopwatch();
-            var G = new Game(this);
-            G.InitGame();
+            game.InitGame();
         }
 
         private void Ranking_Button_Click(object sender, RoutedEventArgs e)
@@ -51,8 +51,7 @@ namespace warcaby
         {
             //Init game again 
             Stopwatch();
-            var G = new Game(this);
-            G.InitGame();
+            game.InitGame();
         }
 
         private void Board_Button_Click(object sender, RoutedEventArgs e)
@@ -63,7 +62,7 @@ namespace warcaby
             var column = Grid.GetColumn(button);
             var row = Grid.GetRow(button);
 
-            G.Select(button, row, column);
+            game.Select(button, row, column);
         }
 
         //Stopwatch

@@ -16,6 +16,7 @@ namespace warcaby
         public Game(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
+            board = new Board(mainWindow);
         }
 
         public void InitGame()
@@ -28,7 +29,6 @@ namespace warcaby
             ((Label)this.mainWindow.FindName("ComputerScore")).Content = "0";
 
             //Init board
-            var board = new Board(mainWindow);
             board.InitBoard();
         }
 

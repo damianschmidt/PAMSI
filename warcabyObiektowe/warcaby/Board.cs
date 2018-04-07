@@ -14,8 +14,8 @@ namespace warcaby
     class Board
     {
         private FieldType[,] boardStatus;
-        private bool selectedPawn = false;
-        private bool selectedQueen = false;
+        private bool selectedPawn;
+        private bool selectedQueen;
         private int selCol = 0;
         private int selRow = 0;
         private Button[,] buttonName;
@@ -37,7 +37,7 @@ namespace warcaby
             //Create a new blank array of free cells
             boardStatus = new FieldType[8, 4];
 
-            //init default value of fields on board
+            //Init default value of fields on board
             for (var i = 0; i < 3; i++)
             {
                 for (var j = 0; j < 4; j++)
@@ -72,12 +72,12 @@ namespace warcaby
             });
             #endregion
 
-            //reset selected button property
+            //Reset selected button property
             selectedPawn = false;
             selectedQueen = false;
         }
 
-        public void SelectWhitePawn(Button button, int row, int column) //tymczasowo publiczne
+        public void SelectWhitePawn(Button button, int row, int column) //Temporary public
         {
             if ((boardStatus[row, column] == FieldType.WhitePawn) && (selectedPawn == false))
             {
@@ -104,7 +104,7 @@ namespace warcaby
                 selRow = row;
                 selCol = column;
             }
-        } //tymczasowo public
+        }
         private void MoveWhitePawn(int row, int column)
         {
 
