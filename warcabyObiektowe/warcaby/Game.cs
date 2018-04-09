@@ -35,6 +35,7 @@ namespace warcaby
         public void Action(Button button, int row, int column)
         {
             board.Select(button, row, column);
+            board.Hit(row, column);
             board.Move(button, row, column);
         }
     }

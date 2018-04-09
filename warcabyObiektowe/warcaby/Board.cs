@@ -42,7 +42,7 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.WhiteQueen;
+                    boardStatus[i, j] = FieldType.BlackPawn;
                     boardStatus[(7 - i), j] = FieldType.WhitePawn;
                     if (i < 2)
                     {
@@ -89,6 +89,12 @@ namespace warcaby
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\checker-selected.jpg", button);
+                if (boardStatus[selRow, selCol] == FieldType.SelectedQueen)
+                {
+                    LoadPicture(".\\img\\jpg\\queen-white.jpg", buttonName[selRow, selCol]);
+                    boardStatus[selRow, selCol] = FieldType.WhiteQueen;
+                    selectedQueen = false;
+                }
 
                 selRow = row;
                 selCol = column;
@@ -116,6 +122,12 @@ namespace warcaby
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-selected.jpg", button);
+                if (boardStatus[selRow, selCol] == FieldType.SelectedPawn)
+                {
+                    LoadPicture(".\\img\\jpg\\checker-white.jpg", buttonName[selRow, selCol]);
+                    boardStatus[selRow, selCol] = FieldType.WhitePawn;
+                    selectedPawn = false;
+                }
 
                 selRow = row;
                 selCol = column;
@@ -457,7 +469,7 @@ namespace warcaby
         #region Partial funcions of Move
         private void MoveWhitePawn(Button button, int row, int column)
         {
-            if (boardStatus[row, column] == FieldType.Move && selectedPawn == true)
+            if ((boardStatus[row, column] == FieldType.Move || boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
@@ -471,7 +483,7 @@ namespace warcaby
         }
         private void MoveWhiteQueen(Button button, int row, int column)
         {
-            if (boardStatus[row, column] == FieldType.Move && selectedQueen == true)
+            if ((boardStatus[row, column] == FieldType.Move || boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
@@ -484,6 +496,519 @@ namespace warcaby
             }
         }
         #endregion
+
+        public void Hit(int row, int column)
+        {
+            CheckPossibleOfPawnHit(row, column);
+            HitWhitePawn(row, column);
+            CheckPossibleOfQueenHit(row, column);
+            HitWhiteQueen(row, column);
+        }
+        #region Partial funcions of Hit
+        private void CheckPossibleOfPawnHit(int row, int column)
+        {
+            bool bottom = false, leftside = false, rightside = false, even = false, odd = false, almostTop = false;
+            string move = ".\\img\\jpg\\move.jpg";
+
+            #region checking position
+            if (row == 1) almostTop = true;
+            if (row == 7) bottom = true;
+            if (column == 0) leftside = true;
+            if (column == 3) rightside = true;
+            if (row == 0 || row == 2 || row == 4 || row == 6) odd = true;
+            if (row == 1 || row == 3 || row == 5 || row == 7) even = true;
+            #endregion
+
+            if (selectedPawn == true)
+            {
+                if ((bottom == true) && (rightside == true))
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                }
+                else if (bottom == true && leftside == true)
+                {
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if (bottom == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if ((leftside == true) && (even == true))
+                {
+                    if ((boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen))
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                            }
+                        }
+                    }    
+                }
+                else if (leftside == true)
+                {  
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if ((rightside == true) && (odd == true))
+                {
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                }
+                else if (rightside == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                            }
+                        }
+                    } 
+                }
+                else if (odd == true)
+                {
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if (even == true)
+                {  
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                            }
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        private void CheckPossibleOfQueenHit(int row, int column)
+        {
+            bool top = false, bottom = false, leftside = false, rightside = false, even = false, odd = false, almostTop = false, almostBottom = false;
+            string move = ".\\img\\jpg\\move.jpg";
+
+            #region checking position
+            if (row == 0) top = true;
+            if (row == 1) almostTop = true;
+            if (row == 7) bottom = true;
+            if (row == 6) almostBottom = true;
+            if (column == 0) leftside = true;
+            if (column == 3) rightside = true;
+            if (row == 0 || row == 2 || row == 4 || row == 6) odd = true;
+            if (row == 1 || row == 3 || row == 5 || row == 7) even = true;
+            #endregion
+
+            if (selectedQueen == true)
+            {
+                if ((top == true) && (leftside == true))
+                {
+                        if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                        {
+                            boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        }
+                }
+                else if (top == true)
+                {
+                    if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                        LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    {
+                        boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                        LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                    }
+                }
+                else if((bottom == true) && (rightside == true))
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                }
+                else if (bottom == true && leftside == true)
+                {
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if (bottom == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if ((leftside == true) && (even == true))
+                {
+                    if ((boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen))
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                            }
+                        }
+                    }
+                    if ((boardStatus[(row + 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column + 1)] == FieldType.BlackQueen))
+                    {
+                        if (boardStatus[(row + 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        }
+                    }
+                }
+                else if (leftside == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                    if (almostBottom != true)
+                    {
+                        if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                        {
+                            if (boardStatus[(row + 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                            }
+                        }
+                    }
+                }
+                else if ((rightside == true) && (odd == true))
+                {
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (almostBottom != true)
+                    {
+                        if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
+                        {
+                            if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                            }
+                        }
+                    }
+                }
+                else if (rightside == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                            }
+                        }
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    { 
+                        if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        }
+                    }
+                }
+                else if (odd == true)
+                {
+                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                        }
+                    }
+                    if (almostBottom != true)
+                    {
+                        if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
+                        {
+                            if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                            }
+                        }
+                        if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                        {
+                            if (boardStatus[(row + 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                            }
+                        }
+                    }
+                }
+                else if (even == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                            }
+                        }
+                    }
+                    if (boardStatus[(row - 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (almostTop != true)
+                        {
+                            if (boardStatus[(row - 2), (column + 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column + 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column + 1)]);
+                            }
+                        }
+                    }
+                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        }
+                    }
+                    if (boardStatus[(row + 1), (column + 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column + 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row + 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        }
+                    }
+                }
+            }
+        }
+        private void HitWhitePawn(int row, int column)
+        {
+            if(boardStatus[row, column] == FieldType.HitMove && selectedPawn == true)
+            {
+                string free = ".\\img\\jpg\\field-dark.jpg";
+
+                if (selRow % 2 == 1)
+                {
+                    if ((selCol - column) < 0)
+                    {
+                        LoadPicture(free, buttonName[(row + 1), column]);
+                        boardStatus[(row + 1), column] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else
+                    {
+                        LoadPicture(free, buttonName[(row + 1), selCol]);
+                        boardStatus[(row + 1), selCol] = FieldType.Free;
+                        //playerScore++;
+                    }
+                }
+                else
+                {
+                    if ((selCol - column) < 0)
+                    {
+                        LoadPicture(free, buttonName[(row + 1), selCol]);
+                        boardStatus[(row + 1), selCol] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else
+                    {
+                        LoadPicture(free, buttonName[(row + 1), column]);
+                        boardStatus[(row + 1), column] = FieldType.Free;
+                        //playerScore++;
+                    }
+                }
+            }
+        }
+        private void HitWhiteQueen(int row, int column)
+        {
+            if (boardStatus[row, column] == FieldType.HitMove && selectedQueen == true)
+            {
+                string free = ".\\img\\jpg\\field-dark.jpg";
+
+                if (selRow % 2 == 1)
+                {
+                    if ((selCol - column) < 0 && (selRow - row) < 0) //Capturing right-down
+                    {
+                        LoadPicture(free, buttonName[(row - 1), column]);
+                        boardStatus[(row - 1), column] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else if ((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
+                    {
+                        LoadPicture(free, buttonName[(row + 1), column]);
+                        boardStatus[(row + 1), column] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else if ((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
+                    {
+                        LoadPicture(free, buttonName[(row + 1), selCol]);
+                        boardStatus[(row + 1), selCol] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else //Capturing left-down
+                    {
+                        LoadPicture(free, buttonName[(row - 1), selCol]);
+                        boardStatus[(row - 1), selCol] = FieldType.Free;
+                        //playerScore++;
+                    }
+                }
+                else
+                {
+                    if ((selCol - column) < 0 && (selRow - row) < 0) //Capturing right-down
+                    {
+                        LoadPicture(free, buttonName[(row - 1), selCol]);
+                        boardStatus[(row - 1), selCol] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else if((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
+                    {
+                        LoadPicture(free, buttonName[(row + 1), selCol]);
+                        boardStatus[(row + 1), selCol] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else if((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
+                    {
+                        LoadPicture(free, buttonName[(row + 1), column]);
+                        boardStatus[(row + 1), column] = FieldType.Free;
+                        //playerScore++;
+                    }
+                    else //Capturing left-down
+                    {
+                        LoadPicture(free, buttonName[(row - 1), column]);
+                        boardStatus[(row - 1), column] = FieldType.Free;
+                        //playerScore++;
+                    }
+                }
+            }
+        }
+        #endregion
+
 
         private void RemovePossibleOfMoves()
         {
