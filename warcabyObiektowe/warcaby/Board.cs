@@ -18,6 +18,7 @@ namespace warcaby
         private bool selectedQueen;
         private int selCol = 0;
         private int selRow = 0;
+        private int playerScore, computerScore;
         private Button[,] buttonName;
         private MainWindow mainWindow;
 
@@ -34,6 +35,10 @@ namespace warcaby
 
         public void InitBoard()
         {
+            //Reset score counter
+            playerScore = 0;
+            computerScore = 0;
+
             //Create a new blank array of free cells
             boardStatus = new FieldType[8, 4];
 
@@ -919,13 +924,13 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                 }
                 else
@@ -934,13 +939,13 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                 }
             }
@@ -957,25 +962,25 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row - 1), column]);
                         boardStatus[(row - 1), column] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else if ((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else if ((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else //Capturing left-down
                     {
                         LoadPicture(free, buttonName[(row - 1), selCol]);
                         boardStatus[(row - 1), selCol] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                 }
                 else
@@ -984,31 +989,39 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row - 1), selCol]);
                         boardStatus[(row - 1), selCol] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else if((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else if((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                     else //Capturing left-down
                     {
                         LoadPicture(free, buttonName[(row - 1), column]);
                         boardStatus[(row - 1), column] = FieldType.Free;
-                        //playerScore++;
+                        playerScore++;
                     }
                 }
             }
         }
         #endregion
 
+        public int PlayerScore()
+        {
+            return playerScore;
+        }
+        public int ComputerScore()
+        {
+            return computerScore;
+        }
 
         private void RemovePossibleOfMoves()
         {

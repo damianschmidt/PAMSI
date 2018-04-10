@@ -37,6 +37,16 @@ namespace warcaby
             board.Select(button, row, column);
             board.Hit(row, column);
             board.Move(button, row, column);
+            Score();
+        }
+
+        private void Score()
+        {
+            playerScore = board.PlayerScore();
+            computerScore = board.ComputerScore();
+
+            ((Label)this.mainWindow.FindName("PlayerScore")).Content = playerScore.ToString();
+            ((Label)this.mainWindow.FindName("ComputerScore")).Content = computerScore.ToString();
         }
     }
 }
