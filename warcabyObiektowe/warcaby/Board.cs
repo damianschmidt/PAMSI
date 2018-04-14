@@ -47,16 +47,12 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.Free;
+                    boardStatus[i, j] = FieldType.BlackPawn;
                     boardStatus[(7 - i), j] = FieldType.WhitePawn;
                     if (i < 2)
                     {
                         boardStatus[(i + 3), j] = FieldType.Free;
                     }
-                    boardStatus[6, j] = FieldType.Free;
-                    boardStatus[5, j] = FieldType.BlackPawn;
-                    boardStatus[4, j] = FieldType.Free;
-                    boardStatus[3, j] = FieldType.BlackPawn;
                 }
             }
 
@@ -518,7 +514,8 @@ namespace warcaby
                 LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
                 boardStatus[selRow, selCol] = FieldType.Free;
 
-                selectedQueen = false;
+                CheckPossibleOfQueenHit(row, column);
+                if (CheckPosibilityOfMultiQueenHit(row, column) != true) selectedQueen = false;
             }
         }
         private void ChangePawnToQueen()
@@ -1089,6 +1086,24 @@ namespace warcaby
                         selRow = row;
                         selCol = column;
                         LoadPicture(".\\img\\jpg\\checker-selected.jpg", buttonName[row, column]);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private bool CheckPosibilityOfMultiQueenHit(int row, int column)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    if (boardStatus[i, j] == FieldType.HitMove)
+                    {
+                        selRow = row;
+                        selCol = column;
+                        LoadPicture(".\\img\\jpg\\queen-selected.jpg", buttonName[row, column]);
                         return true;
                     }
                 }
