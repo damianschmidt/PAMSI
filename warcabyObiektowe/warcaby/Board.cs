@@ -47,12 +47,16 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.BlackPawn;
+                    boardStatus[i, j] = FieldType.Free;
                     boardStatus[(7 - i), j] = FieldType.WhitePawn;
                     if (i < 2)
                     {
                         boardStatus[(i + 3), j] = FieldType.Free;
                     }
+                    boardStatus[6, j] = FieldType.Free;
+                    boardStatus[5, j] = FieldType.BlackPawn;
+                    boardStatus[4, j] = FieldType.Free;
+                    boardStatus[3, j] = FieldType.BlackPawn;
                 }
             }
 
@@ -499,7 +503,8 @@ namespace warcaby
                 LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
                 boardStatus[selRow, selCol] = FieldType.Free;
 
-                selectedPawn = false;
+                CheckPossibleOfPawnHit(row, column);
+                if(CheckPosibilityOfMultiPawnHit(row, column) != true) selectedPawn = false;
             }
         }
         private void MoveWhiteQueen(Button button, int row, int column)
@@ -1071,6 +1076,24 @@ namespace warcaby
                     }
                 }
             }
+        }
+
+        private bool CheckPosibilityOfMultiPawnHit(int row, int column)
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    if (boardStatus[i, j] == FieldType.HitMove)
+                    {
+                        selRow = row;
+                        selCol = column;
+                        LoadPicture(".\\img\\jpg\\checker-selected.jpg", buttonName[row, column]);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void LoadPicture(string source, Button button)
