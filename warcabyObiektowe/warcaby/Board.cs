@@ -47,7 +47,7 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.BlackPawn;
+                    boardStatus[i, j] = FieldType.Free;
                     boardStatus[(7 - i), j] = FieldType.WhitePawn;
                     if (i < 2)
                     {
@@ -156,9 +156,10 @@ namespace warcaby
         }
         private void CheckPossibleOfPawnMoves(int row, int column)
         {
-            bool bottom = false, leftside = false, rightside = false, even = false, odd = false;
+            bool top = false, bottom = false, leftside = false, rightside = false, even = false, odd = false;
             string move = ".\\img\\jpg\\move.jpg";
             #region checking position
+            if (row == 0) top = true;
             if (row == 7) bottom = true;
             if (column == 0) leftside = true;
             if (column == 3) rightside = true;
@@ -166,7 +167,7 @@ namespace warcaby
             if (row == 1 || row == 3 || row == 5 || row == 7) even = true;
             #endregion
 
-            if (selectedPawn == true)
+            if (selectedPawn == true && top != true)
             {
                 if ((bottom == true) && (rightside == true))
                 {
@@ -470,6 +471,7 @@ namespace warcaby
         {
             MoveWhitePawn(button, row, column);
             MoveWhiteQueen(button, row, column);
+            ChangePawnToQueen();
         }
         #region Partial funcions of Move
         private void MoveWhitePawn(Button button, int row, int column)
@@ -500,6 +502,22 @@ namespace warcaby
                 selectedQueen = false;
             }
         }
+        private void ChangePawnToQueen()
+        {
+            for(var i = 0; i < 4; i++)
+            {
+                if (boardStatus[0, i] == FieldType.WhitePawn)
+                {
+                    boardStatus[0, i] = FieldType.WhiteQueen;
+                    LoadPicture(".\\img\\jpg\\queen-white.jpg", buttonName[0, i]);
+                }
+                if (boardStatus[7, i] == FieldType.BlackPawn)
+                {
+                    boardStatus[7, i] = FieldType.BlackQueen;
+                    LoadPicture(".\\img\\jpg\\queen-black.jpg", buttonName[0, i]);
+                }
+            }
+        }
         #endregion
 
         public void Hit(int row, int column)
@@ -512,10 +530,11 @@ namespace warcaby
         #region Partial funcions of Hit
         private void CheckPossibleOfPawnHit(int row, int column)
         {
-            bool bottom = false, leftside = false, rightside = false, even = false, odd = false, almostTop = false;
+            bool top = false, bottom = false, leftside = false, rightside = false, even = false, odd = false, almostTop = false;
             string move = ".\\img\\jpg\\move.jpg";
 
             #region checking position
+            if (row == 0) top = true;
             if (row == 1) almostTop = true;
             if (row == 7) bottom = true;
             if (column == 0) leftside = true;
@@ -524,7 +543,7 @@ namespace warcaby
             if (row == 1 || row == 3 || row == 5 || row == 7) even = true;
             #endregion
 
-            if (selectedPawn == true)
+            if (selectedPawn == true && top != true)
             {
                 if ((bottom == true) && (rightside == true))
                 {
@@ -594,20 +613,9 @@ namespace warcaby
                 }
                 else if ((rightside == true) && (odd == true))
                 {
-                    if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
+                    if (almostTop != true )
                     {
-                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
-                        {
-                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
-                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
-                        }
-                    }
-                }
-                else if (rightside == true)
-                {
-                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
-                    {
-                        if (almostTop != true)
+                        if (boardStatus[(row - 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row - 1), (column - 1)] == FieldType.BlackQueen)
                         {
                             if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
                             {
@@ -615,7 +623,20 @@ namespace warcaby
                                 LoadPicture(move, buttonName[(row - 2), (column - 1)]);
                             }
                         }
-                    } 
+                    }
+                }
+                else if (rightside == true)
+                {
+                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    {
+
+                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                        }
+
+                    }
                 }
                 else if (odd == true)
                 {
