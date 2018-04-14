@@ -47,7 +47,7 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.Free;
+                    boardStatus[i, j] = FieldType.BlackPawn;
                     boardStatus[(7 - i), j] = FieldType.WhitePawn;
                     if (i < 2)
                     {
@@ -120,6 +120,13 @@ namespace warcaby
                 selCol = column;
                 CheckPossibleOfPawnMoves(row, column);
             }
+            else if (boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedPawn == true)
+            {
+                RemovePossibleOfMoves();
+                boardStatus[selRow, selCol] = FieldType.WhitePawn;
+                LoadPicture(".\\img\\jpg\\checker-white.jpg", buttonName[selRow, selCol]);
+                selectedPawn = false;
+            }
         }
         private void SelectWhiteQueen(Button button, int row, int column)
         {
@@ -152,6 +159,13 @@ namespace warcaby
                 selRow = row;
                 selCol = column;
                 CheckPossibleOfQueenMoves(row, column);
+            }
+            else if(boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedQueen == true)
+            {
+                RemovePossibleOfMoves();
+                boardStatus[selRow, selCol] = FieldType.WhiteQueen;
+                LoadPicture(".\\img\\jpg\\queen-white.jpg", buttonName[selRow, selCol]);
+                selectedQueen = false;
             }
         }
         private void CheckPossibleOfPawnMoves(int row, int column)
@@ -514,7 +528,7 @@ namespace warcaby
                 if (boardStatus[7, i] == FieldType.BlackPawn)
                 {
                     boardStatus[7, i] = FieldType.BlackQueen;
-                    LoadPicture(".\\img\\jpg\\queen-black.jpg", buttonName[0, i]);
+                    LoadPicture(".\\img\\jpg\\queen-black.jpg", buttonName[7, i]);
                 }
             }
         }
