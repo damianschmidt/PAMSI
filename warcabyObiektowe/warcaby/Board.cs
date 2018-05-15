@@ -1120,5 +1120,23 @@ namespace warcaby
             brush.ImageSource = temp;
             button.Background = brush;
         }
+
+        private void DrawBoard()
+        {
+            for (var i = 0; i < 8; i++)
+            {
+                for(var j = 0; j < 4; j++)
+                {
+                    if(boardStatus[i,j] == FieldType.BlackPawn) { LoadPicture(".\\img\\jpg\\checker-black.jpg", buttonName[i, j]); }
+                    else if (boardStatus[i, j] == FieldType.BlackQueen) { LoadPicture(".\\img\\jpg\\queen-black.jpg", buttonName[i, j]); }
+                    else if (boardStatus[i, j] == FieldType.HitMove || boardStatus[i, j] == FieldType.Move) { LoadPicture(".\\img\\jpg\\move.jpg", buttonName[i, j]); }
+                    else if (boardStatus[i, j] == FieldType.SelectedPawn) { LoadPicture(".\\img\\jpg\\checker-selected.jpg", buttonName[i, j]); }
+                    else if (boardStatus[i, j] == FieldType.SelectedQueen) { LoadPicture(".\\img\\jpg\\queen-selected.jpg", buttonName[i, j]); }
+                    else if (boardStatus[i, j] == FieldType.WhitePawn) { LoadPicture(".\\img\\jpg\\checker-white.jpg", buttonName[i, j]); }
+                    else if (boardStatus[i, j] == FieldType.WhiteQueen) { LoadPicture(".\\img\\jpg\\queen-white.jpg", buttonName[i, j]); }
+                    else { LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[i, j]); }
+                }
+            }
+        }
     }
 }
