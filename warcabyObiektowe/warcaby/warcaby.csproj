@@ -59,7 +59,9 @@
     </ApplicationDefinition>
     <Compile Include="Board.cs" />
     <Compile Include="FieldType.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Ranking.cs" />
+    <Compile Include="Tree.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
