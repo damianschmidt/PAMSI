@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BlackPawn.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="FieldType.cs" />
     <Compile Include="Node.cs" />
