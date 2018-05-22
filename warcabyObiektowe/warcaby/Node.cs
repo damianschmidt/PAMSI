@@ -9,16 +9,16 @@ namespace warcaby
     public class Node
     {
         private object data;        // Hold data in node
-        private Node left, right;   // Reference to left and right child
+        //private Node left, right;   // Reference to left and right child
 
         #region Constructors
         public Node() : this(null) { }
         public Node(object data) : this(data, null, null) { }
-        public Node(object data, Node left, Node right)
+        public Node(object data, Node l, Node right)
         {
             this.data = data;
-            this.left = left;
-            this.right = right;
+          //  this.left = left;
+          //  this.right = right;
         }
         #endregion
 
