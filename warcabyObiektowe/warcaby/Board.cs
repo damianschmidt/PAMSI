@@ -490,7 +490,18 @@ namespace warcaby
         #region Partial funcions of Move
         private void MoveWhitePawn(Button button, int row, int column)
         {
-            if ((boardStatus[row, column] == FieldType.Move || boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
+            if ((boardStatus[row, column] == FieldType.Move) && selectedPawn == true)
+            {
+                RemovePossibleOfMoves();
+                LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
+                boardStatus[row, column] = FieldType.WhitePawn;
+
+                LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
+                boardStatus[selRow, selCol] = FieldType.Free;
+
+                selectedPawn = false;
+            }
+            else if ((boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
@@ -500,12 +511,23 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfPawnHit(row, column);
-                if(CheckPosibilityOfMultiPawnHit(row, column) != true) selectedPawn = false;
+                if (CheckPossibleOfMultiPawnHit(row, column) != true) selectedPawn = false;
             }
         }
         private void MoveWhiteQueen(Button button, int row, int column)
         {
-            if ((boardStatus[row, column] == FieldType.Move || boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
+            if ((boardStatus[row, column] == FieldType.Move) && selectedQueen == true)
+            {
+                RemovePossibleOfMoves();
+                LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
+                boardStatus[row, column] = FieldType.WhiteQueen;
+
+                LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
+                boardStatus[selRow, selCol] = FieldType.Free;
+
+                selectedQueen = false;
+            }
+            else if ((boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
@@ -515,7 +537,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfQueenHit(row, column);
-                if (CheckPosibilityOfMultiQueenHit(row, column) != true) selectedQueen = false;
+                if (CheckPossibleOfMultiQueenHit(row, column) != true) selectedQueen = false;
             }
         }
         private void ChangePawnToQueen()
@@ -961,13 +983,11 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                 }
                 else
@@ -976,13 +996,11 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                 }
             }
@@ -999,25 +1017,21 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row - 1), column]);
                         boardStatus[(row - 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else if ((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else if ((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else //Capturing left-down
                     {
                         LoadPicture(free, buttonName[(row - 1), selCol]);
                         boardStatus[(row - 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                 }
                 else
@@ -1026,25 +1040,21 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row - 1), selCol]);
                         boardStatus[(row - 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else if((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else if((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else //Capturing left-down
                     {
                         LoadPicture(free, buttonName[(row - 1), column]);
                         boardStatus[(row - 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                 }
             }
@@ -1053,10 +1063,12 @@ namespace warcaby
 
         public int PlayerScore()
         {
+            CheckScore();
             return playerScore;
         }
         public int ComputerScore()
         {
+            CheckScore();
             return computerScore;
         }
 
@@ -1075,7 +1087,7 @@ namespace warcaby
             }
         }
 
-        private bool CheckPosibilityOfMultiPawnHit(int row, int column)
+        private bool CheckPossibleOfMultiPawnHit(int row, int column)
         {
             for (var i = 0; i < 8; i++)
             {
@@ -1093,7 +1105,7 @@ namespace warcaby
             return false;
         }
 
-        private bool CheckPosibilityOfMultiQueenHit(int row, int column)
+        private bool CheckPossibleOfMultiQueenHit(int row, int column)
         {
             for (var i = 0; i < 8; i++)
             {
@@ -1137,6 +1149,30 @@ namespace warcaby
                     else { LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[i, j]); }
                 }
             }
+        }
+
+        private void CheckScore()
+        {
+            int whitePoint = 12;
+            int blackPoint = 12;
+
+            for(var i = 0; i < 8; i++)
+            {
+                for(var j = 0; j < 4; j++)
+                {
+                    if(boardStatus[i, j] == FieldType.BlackPawn || boardStatus[i, j] == FieldType.BlackQueen)
+                    {
+                        blackPoint--;
+                    }
+                    else if (boardStatus[i, j] == FieldType.WhitePawn || boardStatus[i, j] == FieldType.WhiteQueen || boardStatus[i, j] == FieldType.SelectedPawn || boardStatus[i, j] == FieldType.SelectedQueen)
+                    {
+                        whitePoint--;
+                    }
+                }
+            }
+
+            playerScore = blackPoint;
+            computerScore = whitePoint;
         }
     }
 }
