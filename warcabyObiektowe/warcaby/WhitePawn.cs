@@ -71,7 +71,7 @@ namespace warcaby
         {
             int points = 0;
 
-            if (column != 0 && column != 7 && row != 0)
+            if (column != 0 && column != 7 && row > 1)
             {
                 if (boardStatus[row - 1, column - 1] == FieldType.Free && column > 3)
                 {
@@ -119,7 +119,7 @@ namespace warcaby
                     FieldType[,] treeBoard = BoardTo8x4(newBoard);
                 }
             }
-            else if (column == 0 && row != 7)
+            else if (column == 0 && row > 1)
             {
                 if (boardStatus[row - 1, column + 1] == FieldType.Free)
                 {
@@ -133,7 +133,7 @@ namespace warcaby
                     FieldType[,] treeBoard = BoardTo8x4(newBoard);
                 }
             }
-            else if (column == 0 && row != 7)
+            else if (column == 7 && row > 1)
             {
                 if (boardStatus[row - 1, column - 1] == FieldType.Free)
                 {
@@ -147,6 +147,82 @@ namespace warcaby
                     FieldType[,] treeBoard = BoardTo8x4(newBoard);
                 }
             }
+            else if (column != 0 && column != 7 && row == 1)
+            {
+                if (boardStatus[row - 1, column - 1] == FieldType.Free && column > 3)
+                {
+                    points = moveMid;
+
+                    FieldType[,] newBoard = boardStatus;
+                    newBoard[row, column] = FieldType.Free;
+                    newBoard[row - 1, column - 1] = FieldType.WhiteQueen;
+
+                    int newScore = points + CountScore();
+                    FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                }
+                else if (boardStatus[row - 1, column - 1] == FieldType.Free && column < 4)
+                {
+                    points = move;
+
+                    FieldType[,] newBoard = boardStatus;
+                    newBoard[row, column] = FieldType.Free;
+                    newBoard[row - 1, column - 1] = FieldType.WhiteQueen;
+
+                    int newScore = points + CountScore();
+                    FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                }
+
+                if (boardStatus[row - 1, column + 1] == FieldType.Free && column > 3)
+                {
+                    points = move;
+
+                    FieldType[,] newBoard = boardStatus;
+                    newBoard[row, column] = FieldType.Free;
+                    newBoard[row - 1, column + 1] = FieldType.WhiteQueen;
+
+                    int newScore = points + CountScore();
+                    FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                }
+                else if (boardStatus[row - 1, column + 1] == FieldType.Free && column < 4)
+                {
+                    points = moveMid;
+
+                    FieldType[,] newBoard = boardStatus;
+                    newBoard[row, column] = FieldType.Free;
+                    newBoard[row - 1, column + 1] = FieldType.WhiteQueen;
+
+                    int newScore = points + CountScore();
+                    FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                }
+            }
+            else if (column == 0 && row == 1)
+            {
+                if (boardStatus[row - 1, column + 1] == FieldType.Free)
+                {
+                    points = moveEdge;
+
+                    FieldType[,] newBoard = boardStatus;
+                    newBoard[row, column] = FieldType.Free;
+                    newBoard[row - 1, column + 1] = FieldType.WhiteQueen;
+
+                    int newScore = points + CountScore();
+                    FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                }
+            }
+            else if (column == 7 && row == 1)
+            {
+                if (boardStatus[row - 1, column - 1] == FieldType.Free)
+                {
+                    points = moveEdge;
+
+                    FieldType[,] newBoard = boardStatus;
+                    newBoard[row, column] = FieldType.Free;
+                    newBoard[row - 1, column - 1] = FieldType.WhiteQueen;
+
+                    int newScore = points + CountScore();
+                    FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                }
+            }
             return points;
         }
 
@@ -154,7 +230,7 @@ namespace warcaby
         {
             int points = 0;
 
-            if (column > 1 && column < 4 && row > 1) // Check if hit haven't make you out of board 
+            if (column > 1 && column < 4 && row > 2) // Check if hit haven't make you out of board 
             {
                 if (boardStatus[row - 1, column - 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
                 {
@@ -187,7 +263,7 @@ namespace warcaby
                     }
                 }
             }
-            else if (column > 3 && column < 6 && row > 1) // Check if hit haven't make you out of board 
+            else if (column > 3 && column < 6 && row > 2) // Check if hit haven't make you out of board 
             {
                 if (boardStatus[row - 1, column - 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
                 {
@@ -220,7 +296,7 @@ namespace warcaby
                     }
                 }
             }
-            else if (column < 2 && row > 1)
+            else if (column < 2 && row > 2)
             {
                 if (boardStatus[row - 1, column + 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
                 {
@@ -238,7 +314,7 @@ namespace warcaby
                     }
                 }
             }
-            else if (row > 1)
+            else if (row > 2)
             {
                 if (boardStatus[row - 1, column - 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
                 {
@@ -250,6 +326,108 @@ namespace warcaby
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhitePawn;
+
+                        int newScore = points + CountScore();
+                        FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                    }
+                }
+            }
+            else if (column > 1 && column < 4 && row == 2) // Check if hit haven't make you out of board 
+            {
+                if (boardStatus[row - 1, column - 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
+                {
+                    if (boardStatus[row - 2, column - 2] == FieldType.Free)
+                    {
+                        points = hit;
+
+                        FieldType[,] newBoard = boardStatus;
+                        newBoard[row, column] = FieldType.Free;
+                        newBoard[row - 1, column - 1] = FieldType.Free;
+                        newBoard[row - 2, column - 2] = FieldType.WhiteQueen;
+
+                        int newScore = points + CountScore();
+                        FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                    }
+                }
+                else if (boardStatus[row - 1, column + 1] == FieldType.BlackPawn || boardStatus[row - 1, column + 1] == FieldType.BlackQueen)
+                {
+                    if (boardStatus[row - 2, column + 2] == FieldType.Free)
+                    {
+                        points = hitMid;
+
+                        FieldType[,] newBoard = boardStatus;
+                        newBoard[row, column] = FieldType.Free;
+                        newBoard[row - 1, column + 1] = FieldType.Free;
+                        newBoard[row - 2, column + 2] = FieldType.WhiteQueen;
+
+                        int newScore = points + CountScore();
+                        FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                    }
+                }
+            }
+            else if (column > 3 && column < 6 && row == 2) // Check if hit haven't make you out of board 
+            {
+                if (boardStatus[row - 1, column - 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
+                {
+                    if (boardStatus[row - 2, column - 2] == FieldType.Free)
+                    {
+                        points = hitMid;
+
+                        FieldType[,] newBoard = boardStatus;
+                        newBoard[row, column] = FieldType.Free;
+                        newBoard[row - 1, column - 1] = FieldType.Free;
+                        newBoard[row - 2, column - 2] = FieldType.WhiteQueen;
+
+                        int newScore = points + CountScore();
+                        FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                    }
+                }
+                else if (boardStatus[row - 1, column + 1] == FieldType.BlackPawn || boardStatus[row - 1, column + 1] == FieldType.BlackQueen)
+                {
+                    if (boardStatus[row - 2, column + 2] == FieldType.Free)
+                    {
+                        points = hit;
+
+                        FieldType[,] newBoard = boardStatus;
+                        newBoard[row, column] = FieldType.Free;
+                        newBoard[row - 1, column + 1] = FieldType.Free;
+                        newBoard[row - 2, column + 2] = FieldType.WhiteQueen;
+
+                        int newScore = points + CountScore();
+                        FieldType[,] treeBoard = BoardTo8x4(newBoard);
+                    }
+                }
+            }
+            else if (column < 2 && row == 2)
+            {
+                if (boardStatus[row - 1, column + 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
+                {
+                    if (boardStatus[row - 2, column + 2] == FieldType.Free)
+                    {
+                        points = hitEdge;
+
+                        FieldType[,] newBoard = boardStatus;
+                        newBoard[row, column] = FieldType.Free;
+                        newBoard[row - 1, column + 1] = FieldType.Free;
+                        newBoard[row - 2, column + 2] = FieldType.WhiteQueen;
+
+                        int newScore = points + CountScore(); //tu masz punkty
+                        FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    }
+                }
+            }
+            else if (row == 2)
+            {
+                if (boardStatus[row - 1, column - 1] == FieldType.BlackPawn || boardStatus[row - 1, column - 1] == FieldType.BlackQueen)
+                {
+                    if (boardStatus[row - 2, column - 2] == FieldType.Free)
+                    {
+                        points = hitEdge;
+
+                        FieldType[,] newBoard = boardStatus;
+                        newBoard[row, column] = FieldType.Free;
+                        newBoard[row - 1, column - 1] = FieldType.Free;
+                        newBoard[row - 2, column - 2] = FieldType.WhiteQueen;
 
                         int newScore = points + CountScore();
                         FieldType[,] treeBoard = BoardTo8x4(newBoard);
