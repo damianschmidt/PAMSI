@@ -53,6 +53,28 @@ namespace warcaby
 
             ((Label)this.mainWindow.FindName("PlayerScore")).Content = playerScore.ToString();
             ((Label)this.mainWindow.FindName("ComputerScore")).Content = computerScore.ToString();
+
+            if(playerScore == 12)
+            {
+                this.mainWindow.stopWatch.Stop();
+                MessageBox.Show("Gratulacje, wygrałeś!", "Koniec gry!");
+            }
+            else if(computerScore == 12)
+            {
+                this.mainWindow.stopWatch.Stop();
+                MessageBox.Show("Przegrałeś!", "Koniec gry!");
+            }
+        }
+
+        public bool EndOfGame()
+        {
+            if(playerScore == 12 || computerScore == 12)
+            {
+                playerScore = 0;
+                computerScore = 0;
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -120,7 +120,7 @@ namespace warcaby
                     // Jak wyzej
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column - 1] = FieldType.BlackPawn;
+                    newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore(); //tu masz punkty
                     FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice

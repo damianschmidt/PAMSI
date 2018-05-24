@@ -12,9 +12,10 @@ namespace warcaby
     public partial class MainWindow : Window
     {
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
-        private Stopwatch stopWatch = new Stopwatch();
+        public Stopwatch stopWatch = new Stopwatch();
         private string currentTime = string.Empty;
         private Game game;
+        private bool end;
 
 
         public MainWindow()
@@ -30,6 +31,7 @@ namespace warcaby
             //Init game
             Stopwatch();
             game.InitGame();
+            end = game.EndOfGame();
         }
 
         private void Ranking_Button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +54,7 @@ namespace warcaby
             //Init game again 
             Stopwatch();
             game.InitGame();
+            end = game.EndOfGame();
         }
 
         private void Board_Button_Click(object sender, RoutedEventArgs e)
@@ -62,7 +65,8 @@ namespace warcaby
             var column = Grid.GetColumn(button);
             var row = Grid.GetRow(button);
 
-            game.Action(button, row, column);
+            end = game.EndOfGame();
+            if (end == false) { game.Action(button, row, column); }
         }
 
         //Stopwatch
@@ -77,6 +81,7 @@ namespace warcaby
             {
                 dispatcherTimer.Start();
                 stopWatch.Start();
+                stopWatch.Restart();
             }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
