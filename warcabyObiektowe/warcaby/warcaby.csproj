@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BlackPawn.cs" />
+    <Compile Include="BlackQueen.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="FieldType.cs" />
     <Compile Include="Node.cs" />

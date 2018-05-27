@@ -30,6 +30,7 @@ namespace warcaby
         private int edge1 = 0;
         #endregion
 
+        // Constructor
         public WhitePawn(int column, int row, FieldType[,] board)
         {
             this.column = column;
