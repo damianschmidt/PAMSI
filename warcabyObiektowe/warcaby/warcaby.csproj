@@ -65,6 +65,7 @@
     <Compile Include="Ranking.cs" />
     <Compile Include="Tree.cs" />
     <Compile Include="WhitePawn.cs" />
+    <Compile Include="WhiteQueen.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
