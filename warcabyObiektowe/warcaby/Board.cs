@@ -21,6 +21,7 @@ namespace warcaby
         private int playerScore, computerScore;
         private Button[,] buttonName;
         private MainWindow mainWindow;
+        public bool computerTurn = false;
 
         public Board(MainWindow mainWindow)
         {
@@ -500,6 +501,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 selectedPawn = false;
+                computerTurn = true;
             }
             else if ((boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
             {
@@ -511,7 +513,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfPawnHit(row, column);
-                if (CheckPossibleOfMultiPawnHit(row, column) != true) selectedPawn = false;
+                if (CheckPossibleOfMultiPawnHit(row, column) != true) { selectedPawn = false; computerTurn = true; }
             }
         }
         private void MoveWhiteQueen(Button button, int row, int column)
@@ -526,6 +528,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 selectedQueen = false;
+                computerTurn = true;
             }
             else if ((boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
             {
@@ -537,7 +540,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfQueenHit(row, column);
-                if (CheckPossibleOfMultiQueenHit(row, column) != true) selectedQueen = false;
+                if (CheckPossibleOfMultiQueenHit(row, column) != true) { selectedQueen = false; computerTurn = true; }
             }
         }
         private void ChangePawnToQueen()

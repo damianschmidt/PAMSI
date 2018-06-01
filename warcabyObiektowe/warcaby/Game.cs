@@ -34,15 +34,16 @@ namespace warcaby
 
         public void Action(Button button, int row, int column)
         {
-            /* Example of using tree   ( 2 sons and 1 vater )
-             Tree tree = new Tree();
-             tree.Root = new Node(1);
-             tree.Root.Left = new Node(2);
-             tree.Root.Right = new Node(3);
-             */
             board.Select(button, row, column);
             board.Hit(row, column);
             board.Move(button, row, column);
+            Score();
+            if(board.computerTurn == true)
+            {
+                //AI funcion
+                MessageBox.Show("Myślisz, że możesz ze mną wygrać?!", "Tura computera");
+                board.computerTurn = false;
+            }
             Score();
         }
 
