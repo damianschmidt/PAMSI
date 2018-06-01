@@ -5,24 +5,12 @@ namespace warcaby
 {
     class Node
     {
-        private  Node parent { get; set; }
-        private FieldType[,] currentBoard { get; set; }
-        private int score { get; set; }
+        public Node parent { get; set; }
+        public FieldType[,] currentBoard { get; set; }
+        public int score { get; set; }
 
-        public Node()
-        {
-            this.parent = null;
-            this.currentBoard = null;
-            this.score = 0;
-        }           
-        public Node(FieldType[,] currentBoard, int score)
-        {
-            this.parent = null;
-            this.currentBoard = currentBoard;
-            this.score = score;
-        }
-
-        public Node(Node parent, FieldType[,] currentBoard, int score)
+ 
+        public Node(Node parent = null, FieldType[,] currentBoard = null, int score = 0)
         {
             this.parent = parent;
             this.currentBoard = currentBoard;
