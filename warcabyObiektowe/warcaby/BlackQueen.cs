@@ -13,6 +13,8 @@ namespace warcaby
         private FieldType[,] boardStatus;
         private FieldType[,] boardAfter;
         private int score = 0;
+        private Node parent;
+        private List<Node> listNode;
 
         #region Points 
         private int type = 10;
@@ -34,26 +36,7 @@ namespace warcaby
         {
             this.column = column;
             this.row = row;
-
-            FieldType[,] newBoard = new FieldType[8, 8];
-            #region Overwrite boardStatus
-            for (var i = 0; i < 8; i++)
-            {
-                for (var j = 0; j < 4; j++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        newBoard[i, 2 * j] = board[i, j];
-                    }
-                    else
-                    {
-                        newBoard[i, (2 * j) + 1] = board[i, j];
-                    }
-                }
-            }
-            #endregion
-
-            this.boardStatus = newBoard;
+            this.boardStatus = board;
         }
 
         public bool PossibilityOfMoving()

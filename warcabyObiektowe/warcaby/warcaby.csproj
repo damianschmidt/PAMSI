@@ -61,7 +61,6 @@
     <Compile Include="BlackQueen.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="FieldType.cs" />
-    <Compile Include="Node.cs" />
     <Compile Include="Ranking.cs" />
     <Compile Include="Tree.cs" />
     <Compile Include="WhitePawn.cs" />

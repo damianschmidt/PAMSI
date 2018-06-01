@@ -1,38 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace warcaby
 {
+    class Node
+    {
+        private Node parent;
+        private Board currentBoard;
+        private int score;
+
+        public int parent { get; set; }
+        public int currentBoard { get; set; }
+        public int score { get; set; }
+
+        public Node(Board currentBoard, int score)
+        {
+            this.parent = null;
+            this.currentBoard = currentBoard;
+            this.score = score;
+        }
+
+        public Node(Node parent, Board currentBoard, int score)
+        {
+            this.parent = parent;
+            this.currentBoard = currentBoard;
+            this.score = score;
+        }
+    }
+
     class Tree
     {
-        private Node root;
+        public List<Node> Level1 = new List<Node>();
+        public List<Node> Level2 = new List<Node>();
+        public List<Node> Level3 = new List<Node>();
 
-        public Tree()
+        #region Insert method's
+        public void InsertL1(Board currentBoard, int score)
         {
-            root = null;
+            Node newNode = new Node();
+            newNode.currentBoard = currentBoard;
+            newNode.score = score;
+            Level1.Add(newNode);
         }
 
-        #region Clear method
-        public virtual void Clear()
+        public void InsertL2(Node parent, Board currentBoard, int score)
         {
-            root = null;
+            Node newNode = new Node();
+            newNode.parent = parent;
+            newNode.currentBoard = currentBoard;
+            newNode.score = score;
+            Level2.Add(newNode);
         }
-        #endregion
 
-        #region Getter's and setter's
-        public Node Root
+        public void InsertL3(Node parent, Board currentBoard, int score)
         {
-            get
-            {
-                return root;
-            }
-            set
-            {
-                root = value;
-            }
+            Node newNode = new Node();
+            newNode.parent = parent;
+            newNode.currentBoard = currentBoard;
+            newNode.score = score;
+            Level3.Add(newNode);
         }
         #endregion
     }

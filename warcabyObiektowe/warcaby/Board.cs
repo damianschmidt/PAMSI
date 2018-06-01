@@ -1177,5 +1177,74 @@ namespace warcaby
             playerScore = blackPoint;
             computerScore = whitePoint;
         }
+
+        private void AI(FieldType[,] board)
+        {
+            //Tree
+            board = BoardTo8x8(board);
+            for(var i = 0; i < 8; i++)
+            {
+                for(var j = 0; j < 8; j++)
+                {
+                    if(board[i,j] == FieldType.BlackPawn)
+                    {
+                        BlackPawn blackpawn = new BlackPawn(i, j, board);
+                        if(blackpawn.PossibilityOfMoving() == true)
+                        {
+                            List<Node> listNode = blackpawn.ReturnNode();
+                            foreach(var n in listNode)
+                            {
+                                //Tree insert level1
+                            }
+                        }
+                    }
+                    else if(board[i,j] == FieldType.BlackQueen)
+                    {
+                        //BlackQueen blackqueen = new BlackQueen()
+                    }
+                }
+            }
+        }
+
+        private FieldType[,] BoardTo8x8(FieldType[,] board)
+        {
+            FieldType[,] newBoard = new FieldType[8, 8];
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        newBoard[i, 2 * j] = board[i, j];
+                    }
+                    else
+                    {
+                        newBoard[i, (2 * j) + 1] = board[i, j];
+                    }
+                }
+            }
+            return newBoard;
+        }
+
+        private FieldType[,] BoardTo8x4(FieldType[,] board)
+        {
+            FieldType[,] newBoard = new FieldType[8, 4];
+
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        newBoard[i, j] = board[i, 2 * j];
+                    }
+                    else
+                    {
+                        newBoard[i, j] = board[i, (2 * j) + 1];
+                    }
+                }
+            }
+            return newBoard;
+        }
     }
 }

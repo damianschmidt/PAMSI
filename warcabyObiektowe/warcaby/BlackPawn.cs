@@ -13,6 +13,8 @@ namespace warcaby
         private FieldType[,] boardStatus;
         private FieldType[,] boardAfter;
         private int score = 0;
+        private Node parent;
+        private List<Node> listNode;
 
         #region Points 
         private int type = 1;
@@ -32,30 +34,12 @@ namespace warcaby
         #endregion
 
         // Constructor
-        public BlackPawn(int column, int row, FieldType[,] board)
+        public BlackPawn(int column, int row, FieldType[,] board, Node node = null)
         {
             this.column = column;
             this.row = row;
-
-            FieldType[,] newBoard = new FieldType[8, 8];
-            #region Overwrite boardStatus
-            for(var i = 0; i < 8; i++)
-            {
-                for(var j = 0; j<4; j++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        newBoard[i, 2 * j] = board[i, j];
-                    }
-                    else
-                    {
-                        newBoard[i, (2 * j) + 1] = board[i, j];
-                    }
-                }
-            }
-            #endregion
-
-            this.boardStatus = newBoard;
+            this.boardStatus = board;
+            this.parent = node;
         }
 
         public bool PossibilityOfMoving()
@@ -80,51 +64,50 @@ namespace warcaby
                 {
                     points = moveMid;
 
-                    // Tutaj tworzę galaz, ktora przyjmuje dwa argumenty: wynik + tablice stanow zmieniona, ale nie wiem jak , wiec tu to napraw xD
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column - 1] = FieldType.BlackPawn;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
-                    //Pozniej to najwyzej w jakas funckej zamkne zeby bylo mniej linijek kodu, ale na razie jest roboczo tak
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
                 else if (boardStatus[row + 1, column - 1] == FieldType.Free && column < 4)
                 {
                     points = move;
 
-                    // Jak wyzej
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column - 1] = FieldType.BlackPawn;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
 
                 if (boardStatus[row + 1, column + 1] == FieldType.Free && column > 3)
                 {
                     points = move;
 
-                    // Jak wyzej
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
                 else if (boardStatus[row + 1, column + 1] == FieldType.Free && column < 4)
                 {
                     points = moveMid;
 
-                    // Jak wyzej
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
             }
             else if(column == 0 && row < 6)
@@ -132,14 +115,14 @@ namespace warcaby
                 if (boardStatus[row + 1, column + 1] == FieldType.Free)
                 {
                     points = moveEdge;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
             }
             else if(column == 7 && row < 6)
@@ -147,14 +130,14 @@ namespace warcaby
                 if (boardStatus[row + 1, column - 1] == FieldType.Free)
                 {
                     points = moveEdge;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column - 1] = FieldType.BlackPawn;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
             }
             else if (column != 0 && column != 7 && row == 6)
@@ -162,52 +145,51 @@ namespace warcaby
                 if (boardStatus[row + 1, column - 1] == FieldType.Free && column > 3)
                 {
                     points = moveMid;
-
-                    // Tutaj tworzę galaz, ktora przyjmuje dwa argumenty: wynik + tablice stanow zmieniona, ale nie wiem jak , wiec tu to napraw xD
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column - 1] = FieldType.BlackQueen;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
-                    //Pozniej to najwyzej w jakas funckej zamkne zeby bylo mniej linijek kodu, ale na razie jest roboczo tak
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
                 else if (boardStatus[row + 1, column - 1] == FieldType.Free && column < 4)
                 {
                     points = move;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column - 1] = FieldType.BlackQueen;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
 
                 if (boardStatus[row + 1, column + 1] == FieldType.Free && column > 3)
                 {
                     points = move;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column + 1] = FieldType.BlackQueen;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
                 else if (boardStatus[row + 1, column + 1] == FieldType.Free && column < 4)
                 {
                     points = moveMid;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column + 1] = FieldType.BlackQueen;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
             }
             else if (column == 0 && row == 6)
@@ -215,14 +197,14 @@ namespace warcaby
                 if (boardStatus[row + 1, column + 1] == FieldType.Free)
                 {
                     points = moveEdge;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column + 1] = FieldType.BlackQueen;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
             }
             else if (column == 7 && row == 6)
@@ -230,18 +212,18 @@ namespace warcaby
                 if (boardStatus[row + 1, column - 1] == FieldType.Free)
                 {
                     points = moveEdge;
-
-                    // Jak wyzej
+                    
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row + 1, column - 1] = FieldType.BlackQueen;
 
-                    int newScore = points + CountScore(); //tu masz punkty
-                    FieldType[,] treeBoard = BoardTo8x4(newBoard); //a tutaj ta tablice
+                    int newScore = points + CountScore();
+                    Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                    listNode.Add(newNode); // Add to list of possible moves
                 }
             }
             return points;
-        } //FILIP ZAJRZYJ TU!!!
+        }
 
         private int Hit(FieldType[,] board)
         {
@@ -254,22 +236,22 @@ namespace warcaby
                     if (board[row + 2, column - 2] == FieldType.Free)
                     {
                         points = hit;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackPawn;
                         boardAfter = newBoard;
                         
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if(Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
                         
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
                 else if (board[row + 1, column + 1] == FieldType.WhitePawn || board[row + 1, column + 1] == FieldType.WhiteQueen)
@@ -277,22 +259,22 @@ namespace warcaby
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
                         points = hitMid;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackPawn;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
@@ -303,22 +285,22 @@ namespace warcaby
                     if (board[row + 2, column - 2] == FieldType.Free)
                     {
                         points = hitMid;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackPawn;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
                 else if (board[row + 1, column + 1] == FieldType.WhitePawn || board[row + 1, column + 1] == FieldType.WhiteQueen)
@@ -326,22 +308,22 @@ namespace warcaby
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
                         points = hit;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackPawn;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
@@ -352,22 +334,22 @@ namespace warcaby
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
                         points = hitEdge;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackPawn;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
@@ -378,22 +360,22 @@ namespace warcaby
                     if (board[row + 2, column - 2] == FieldType.Free)
                     {
                         points = hitEdge;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackPawn;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
@@ -404,22 +386,22 @@ namespace warcaby
                     if (board[row + 2, column - 2] == FieldType.Free)
                     {
                         points = hit;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackQueen;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
                 else if (board[row + 1, column + 1] == FieldType.WhitePawn || board[row + 1, column + 1] == FieldType.WhiteQueen)
@@ -427,22 +409,20 @@ namespace warcaby
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
                         points = hitMid;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackQueen;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
                     }
                 }
             }
@@ -453,22 +433,22 @@ namespace warcaby
                     if (board[row + 2, column - 2] == FieldType.Free)
                     {
                         points = hitMid;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackQueen;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
                 else if (board[row + 1, column + 1] == FieldType.WhitePawn || board[row + 1, column + 1] == FieldType.WhiteQueen)
@@ -476,22 +456,22 @@ namespace warcaby
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
                         points = hit;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackQueen;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
@@ -502,21 +482,21 @@ namespace warcaby
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
                         points = hitEdge;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
@@ -527,27 +507,27 @@ namespace warcaby
                     if (board[row + 2, column - 2] == FieldType.Free)
                     {
                         points = hitEdge;
-
-                        // Jak wyzej
+                        
                         FieldType[,] newBoard = board;
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackQueen;
                         boardAfter = newBoard;
 
-                        //Wielokrotne bicie sprawdzenie
+                        // Multicapturing
                         if (Hit(newBoard) != 0)
                         {
                             points = points + Hit(newBoard);
                         }
 
-                        int newScore = points + CountScore(); //tu masz punkty
-                        FieldType[,] treeBoard = BoardTo8x4(boardAfter); //a tutaj ta tablice
+                        int newScore = points + CountScore();
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
             }
             return points;
-        } //FILIP ZAJRZYJ TU!!!
+        }
 
         private int PositionLevel()
         {
@@ -585,25 +565,9 @@ namespace warcaby
             }
         }
 
-        private FieldType[,] BoardTo8x4(FieldType[,] board)
+        public List<Node> ReturnNode()
         {
-            FieldType[,] newBoard = new FieldType[8, 4];
-            
-            for(var i = 0; i < 8; i++)
-            {
-                for(var j = 0; j < 4; j++)
-                {
-                    if (row % 2 == 0)
-                    {
-                        newBoard[i, j] = board[i, 2 * j];
-                    }
-                    else
-                    {
-                        newBoard[i, j] = board[i, (2 * j) + 1];
-                    }
-                }
-            }
-            return newBoard;
+            return listNode;
         }
     }
 }
