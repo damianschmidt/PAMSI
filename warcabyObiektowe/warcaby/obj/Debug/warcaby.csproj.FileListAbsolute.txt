@@ -13,3 +13,10 @@ C:\Users\Damian\Desktop\newPAMSI\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcab
 C:\Users\Damian\Desktop\newPAMSI\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.csproj.CoreCompileInputs.cache
 C:\Users\Damian\Desktop\newPAMSI\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.exe
 C:\Users\Damian\Desktop\newPAMSI\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.pdb
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\MainWindow.g.cs
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\App.g.cs
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby_MarkupCompile.cache
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby_MarkupCompile.lref
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.exe
+C:\Users\Filip\Desktop\PWR\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.pdb

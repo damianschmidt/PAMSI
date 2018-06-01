@@ -5,22 +5,24 @@ namespace warcaby
 {
     class Node
     {
-        private Node parent;
-        private Board currentBoard;
-        private int score;
+        private  Node parent { get; set; }
+        private FieldType[,] currentBoard { get; set; }
+        private int score { get; set; }
 
-        public int parent { get; set; }
-        public int currentBoard { get; set; }
-        public int score { get; set; }
-
-        public Node(Board currentBoard, int score)
+        public Node()
+        {
+            this.parent = null;
+            this.currentBoard = null;
+            this.score = 0;
+        }           
+        public Node(FieldType[,] currentBoard, int score)
         {
             this.parent = null;
             this.currentBoard = currentBoard;
             this.score = score;
         }
 
-        public Node(Node parent, Board currentBoard, int score)
+        public Node(Node parent, FieldType[,] currentBoard, int score)
         {
             this.parent = parent;
             this.currentBoard = currentBoard;
@@ -35,7 +37,7 @@ namespace warcaby
         public List<Node> Level3 = new List<Node>();
 
         #region Insert method's
-        public void InsertL1(Board currentBoard, int score)
+        public void InsertL1(FieldType[,] currentBoard, int score)
         {
             Node newNode = new Node();
             newNode.currentBoard = currentBoard;
@@ -43,7 +45,7 @@ namespace warcaby
             Level1.Add(newNode);
         }
 
-        public void InsertL2(Node parent, Board currentBoard, int score)
+        public void InsertL2(Node parent, FieldType[,] currentBoard, int score)
         {
             Node newNode = new Node();
             newNode.parent = parent;
@@ -52,7 +54,7 @@ namespace warcaby
             Level2.Add(newNode);
         }
 
-        public void InsertL3(Node parent, Board currentBoard, int score)
+        public void InsertL3(Node parent, FieldType[,] currentBoard, int score)
         {
             Node newNode = new Node();
             newNode.parent = parent;
