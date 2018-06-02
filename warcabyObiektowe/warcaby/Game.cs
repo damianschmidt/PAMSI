@@ -12,6 +12,7 @@ namespace warcaby
         private int computerScore { get; set; } = 0;
         private MainWindow mainWindow;
         private Board board;
+        private bool end = false;
 
         public Game(MainWindow mainWindow)
         {
@@ -38,12 +39,12 @@ namespace warcaby
             board.Hit(row, column);
             board.Move(button, row, column);
             Score();
-            if(board.computerTurn == true)
+            if (board.computerTurn == true && end != true)
             {
-                board.ComputerTurn();    
+                board.ComputerTurn();
                 board.computerTurn = false;
+                Score();
             }
-            Score();
         }
 
         private void Score()
@@ -58,11 +59,13 @@ namespace warcaby
             {
                 this.mainWindow.stopWatch.Stop();
                 MessageBox.Show("Gratulacje, wygrałeś!", "Koniec gry!");
+                end = true;
             }
             else if(computerScore == 12)
             {
                 this.mainWindow.stopWatch.Stop();
                 MessageBox.Show("Przegrałeś!", "Koniec gry!");
+                end = true;
             }
         }
 
@@ -72,6 +75,7 @@ namespace warcaby
             {
                 playerScore = 0;
                 computerScore = 0;
+                end = false;
                 return true;
             }
             return false;

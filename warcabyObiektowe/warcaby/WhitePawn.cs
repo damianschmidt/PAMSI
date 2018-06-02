@@ -64,7 +64,7 @@ namespace warcaby
                 {
                     points = moveMid;
                     
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column - 1] = FieldType.WhitePawn;
 
@@ -76,7 +76,7 @@ namespace warcaby
                 {
                     points = move;
                     
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column - 1] = FieldType.WhitePawn;
 
@@ -89,7 +89,7 @@ namespace warcaby
                 {
                     points = move;
                     
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column + 1] = FieldType.WhitePawn;
 
@@ -101,7 +101,7 @@ namespace warcaby
                 {
                     points = moveMid;
                     
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column + 1] = FieldType.WhitePawn;
 
@@ -116,7 +116,7 @@ namespace warcaby
                 {
                     points = moveEdge;
                     
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column + 1] = FieldType.WhitePawn;
 
@@ -131,7 +131,7 @@ namespace warcaby
                 {
                     points = moveEdge;
                     
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column - 1] = FieldType.WhitePawn;
 
@@ -146,7 +146,7 @@ namespace warcaby
                 {
                     points = moveMid;
 
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column - 1] = FieldType.WhiteQueen;
 
@@ -158,7 +158,7 @@ namespace warcaby
                 {
                     points = move;
 
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column - 1] = FieldType.WhiteQueen;
 
@@ -171,7 +171,7 @@ namespace warcaby
                 {
                     points = move;
 
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column + 1] = FieldType.WhiteQueen;
 
@@ -183,7 +183,7 @@ namespace warcaby
                 {
                     points = moveMid;
 
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column + 1] = FieldType.WhiteQueen;
 
@@ -198,7 +198,7 @@ namespace warcaby
                 {
                     points = moveEdge;
 
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column + 1] = FieldType.WhiteQueen;
 
@@ -213,7 +213,7 @@ namespace warcaby
                 {
                     points = moveEdge;
 
-                    FieldType[,] newBoard = boardStatus;
+                    FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
                     newBoard[row - 1, column - 1] = FieldType.WhiteQueen;
 
@@ -237,7 +237,7 @@ namespace warcaby
                     {
                         points = hit;
                         
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhitePawn;
@@ -259,7 +259,7 @@ namespace warcaby
                     {
                         points = hitMid;
                         
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column + 1] = FieldType.Free;
                         newBoard[row - 2, column + 2] = FieldType.WhitePawn;
@@ -284,7 +284,7 @@ namespace warcaby
                     {
                         points = hitMid;
                         
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhitePawn;
@@ -306,7 +306,7 @@ namespace warcaby
                     {
                         points = hit;
                         
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column + 1] = FieldType.Free;
                         newBoard[row - 2, column + 2] = FieldType.WhitePawn;
@@ -331,7 +331,7 @@ namespace warcaby
                     {
                         points = hitEdge;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column + 1] = FieldType.Free;
                         newBoard[row - 2, column + 2] = FieldType.WhitePawn;
@@ -356,7 +356,7 @@ namespace warcaby
                     {
                         points = hitEdge;
                         
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhitePawn;
@@ -381,7 +381,7 @@ namespace warcaby
                     {
                         points = hit;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhiteQueen;
@@ -403,7 +403,7 @@ namespace warcaby
                     {
                         points = hitMid;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column + 1] = FieldType.Free;
                         newBoard[row - 2, column + 2] = FieldType.WhiteQueen;
@@ -428,7 +428,7 @@ namespace warcaby
                     {
                         points = hitMid;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhiteQueen;
@@ -450,7 +450,7 @@ namespace warcaby
                     {
                         points = hit;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column + 1] = FieldType.Free;
                         newBoard[row - 2, column + 2] = FieldType.WhiteQueen;
@@ -469,13 +469,13 @@ namespace warcaby
             }
             else if (column < 2 && row == 2)
             {
-                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column - 1] == FieldType.BlackQueen)
+                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
                 {
                     if (board[row - 2, column + 2] == FieldType.Free)
                     {
                         points = hitEdge;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column + 1] = FieldType.Free;
                         newBoard[row - 2, column + 2] = FieldType.WhiteQueen;
@@ -500,7 +500,7 @@ namespace warcaby
                     {
                         points = hitEdge;
 
-                        FieldType[,] newBoard = board;
+                        FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row - 1, column - 1] = FieldType.Free;
                         newBoard[row - 2, column - 2] = FieldType.WhiteQueen;
@@ -559,6 +559,13 @@ namespace warcaby
         public List<Node> ReturnNode()
         {
             return listNode;
+        }
+
+        public FieldType[,] Clone(FieldType[,] board)
+        {
+            FieldType[,] copyBoard = new FieldType[8, 8];
+            Array.Copy(board, copyBoard, board.Length);
+            return copyBoard;
         }
     }
 }
