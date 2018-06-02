@@ -20,36 +20,53 @@ namespace warcaby
 
     class Tree
     {
-        public List<Node> Level1 = new List<Node>();
-        public List<Node> Level2 = new List<Node>();
-        public List<Node> Level3 = new List<Node>();
+        private List<Node> Level1 = new List<Node>();
+        private List<Node> Level2 = new List<Node>();
+        private List<Node> Level3 = new List<Node>();
 
-        #region Insert method's
-        public void InsertL1(FieldType[,] currentBoard, int score)
+        #region Insert methods
+        public void InsertLevel1(Node node)
         {
-            Node newNode = new Node();
-            newNode.currentBoard = currentBoard;
-            newNode.score = score;
-            Level1.Add(newNode);
+            Level1.Add(node);
         }
 
-        public void InsertL2(Node parent, FieldType[,] currentBoard, int score)
+        public void InsertLevel2(Node node)
         {
-            Node newNode = new Node();
-            newNode.parent = parent;
-            newNode.currentBoard = currentBoard;
-            newNode.score = score;
-            Level2.Add(newNode);
+            Level2.Add(node);
         }
 
-        public void InsertL3(Node parent, FieldType[,] currentBoard, int score)
+        public void InsertLevel3(Node node)
         {
-            Node newNode = new Node();
-            newNode.parent = parent;
-            newNode.currentBoard = currentBoard;
-            newNode.score = score;
-            Level3.Add(newNode);
+            Level3.Add(node);
         }
         #endregion
+
+        #region Make array methods
+        public Node[] ToArrayLevel1()
+        {
+            return Level1.ToArray(); 
+        }
+
+        public Node[] ToArrayLevel2()
+        {
+            return Level2.ToArray();
+        }
+
+        public Node[] ToArrayLevel3()
+        {
+            return Level3.ToArray();
+        }
+        #endregion
+
+        public List<Node> GetLevel1()
+        {
+            return Level1;
+        }
+
+        public List<Node> GetLevel3()
+        {
+            return Level3;
+        }
+
     }
 }

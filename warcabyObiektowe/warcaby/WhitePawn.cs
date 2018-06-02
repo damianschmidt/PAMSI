@@ -34,12 +34,13 @@ namespace warcaby
         #endregion
 
         // Constructor
-        public WhitePawn(int column, int row, FieldType[,] board, Node node = null)
+        public WhitePawn(int row, int column, FieldType[,] board, Node node = null)
         {
             this.column = column;
             this.row = row;
             this.boardStatus = board;
             this.parent = node;
+            this.listNode = new List<Node>();
         }
         public bool PossibilityOfMoving()
         {
@@ -553,6 +554,11 @@ namespace warcaby
             {
                 return edge1;
             }
+        }
+
+        public List<Node> ReturnNode()
+        {
+            return listNode;
         }
     }
 }

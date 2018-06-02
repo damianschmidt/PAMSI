@@ -56,7 +56,6 @@ namespace warcaby
                     }
                 }
             }
-
             #region Iterate every button on the grid
             int k = 1;
             this.mainWindow.FieldsGrid.Children.Cast<Button>().ToList().ForEach(button =>
@@ -81,6 +80,7 @@ namespace warcaby
             //Reset selected button property
             selectedPawn = false;
             selectedQueen = false;
+            DrawBoard();
         }
 
         public void Select(Button button, int row, int column)
@@ -1178,32 +1178,199 @@ namespace warcaby
             computerScore = whitePoint;
         }
 
-        private void AI(FieldType[,] board)
+        public void ComputerTurn()
         {
-            //Tree
-            board = BoardTo8x8(board);
-            for(var i = 0; i < 8; i++)
+            AI();
+            DrawBoard();
+        }
+        #region AI functions
+        private void AI()
+        {
+            Tree tree = new Tree();
+            Node[] listLevel1 = null;
+            Node[] listLevel2 = null;
+            Node[] listLevel3 = null;
+            FieldType[,] board;
+            board = BoardTo8x8(boardStatus);
+            #region MAX algorithm
+            for (var i = 0; i < 8; i++)
             {
-                for(var j = 0; j < 8; j++)
+                for (var j = 0; j < 8; j++)
                 {
-                    if(board[i,j] == FieldType.BlackPawn)
+                    if (board[i, j] == FieldType.BlackPawn)
                     {
                         BlackPawn blackpawn = new BlackPawn(i, j, board);
-                        if(blackpawn.PossibilityOfMoving() == true)
+                        if (blackpawn.PossibilityOfMoving() == true)
                         {
                             List<Node> listNode = blackpawn.ReturnNode();
-                            foreach(var n in listNode)
+                            MessageBox.Show(listNode.Count.ToString(), "Z pionka");
+                            foreach (var n in listNode)
                             {
-                                //Tree insert level1
+                                tree.InsertLevel1(n);
+                                MessageBox.Show(tree.GetLevel1().Count.ToString(), "W drzewie");
                             }
                         }
                     }
-                    else if(board[i,j] == FieldType.BlackQueen)
+                    else if (board[i, j] == FieldType.BlackQueen)
                     {
-                        //BlackQueen blackqueen = new BlackQueen()
+                        BlackQueen blackqueen = new BlackQueen(i, j, board);
+                        if (blackqueen.PossibilityOfMoving() == true)
+                        {
+                            List<Node> listNode = blackqueen.ReturnNode();
+                            foreach (var n in listNode)
+                            {
+                                tree.InsertLevel1(n);
+                            }
+                        }
                     }
                 }
             }
+            #endregion
+
+            listLevel1 = tree.ToArrayLevel1();
+            //for (var k = 0; k < listLevel1.Length; k++)
+            //{
+            //    #region MIN algorithm
+            //    for (var i = 0; i < 8; i++)
+            //    {
+            //        for (var j = 0; j < 8; j++)
+            //        {
+            //            if (listLevel1[k].currentBoard[i, j] == FieldType.WhitePawn)
+            //            {
+            //                WhitePawn whitepawn = new WhitePawn(i, j, listLevel1[k].currentBoard, listLevel1[k]);
+            //                if (whitepawn.PossibilityOfMoving() == true)
+            //                {
+            //                    List<Node> listNode = whitepawn.ReturnNode();
+            //                    foreach (var n in listNode)
+            //                    {
+            //                        n.score = n.score + listLevel1[k].score;
+            //                        tree.InsertLevel2(n);
+            //                    }
+            //                }
+            //            }
+            //            else if (listLevel1[k].currentBoard[i, j] == FieldType.WhiteQueen)
+            //            {
+            //                WhiteQueen whitequeen = new WhiteQueen(i, j, listLevel1[k].currentBoard, listLevel1[k]);
+            //                if (whitequeen.PossibilityOfMoving() == true)
+            //                {
+            //                    List<Node> listNode = whitequeen.ReturnNode();
+            //                    foreach (var n in listNode)
+            //                    {
+            //                        n.score = n.score + listLevel1[k].score;
+            //                        tree.InsertLevel2(n);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //    #endregion
+            //}
+
+            //listLevel2 = tree.ToArrayLevel2();
+            //Node min = listLevel2[0];
+            //for(var k = 1; k < listLevel2.Length; k++)
+            //{
+            //    if (listLevel2[k].parent.score == listLevel2[k - 1].parent.score)
+            //    {
+            //        if (listLevel2[k].score < listLevel2[k - 1].score)
+            //        {
+            //            min = listLevel2[k];
+            //        }
+            //    }
+            //    else
+            //    {
+            //        #region MAX algorithm
+            //        for (var i = 0; i < 8; i++)
+            //        {
+            //            for (var j = 0; j < 8; j++)
+            //            {
+            //                if (min.currentBoard[i, j] == FieldType.BlackPawn)
+            //                {
+            //                    BlackPawn blackpawn = new BlackPawn(i, j, min.currentBoard, min);
+            //                    if (blackpawn.PossibilityOfMoving() == true)
+            //                    {
+            //                        List<Node> listNode = blackpawn.ReturnNode();
+            //                        foreach (var n in listNode)
+            //                        {
+            //                            n.score = n.score + min.score;
+            //                            tree.InsertLevel3(n);
+            //                        }
+            //                    }
+            //                }
+            //                else if (min.currentBoard[i, j] == FieldType.BlackQueen)
+            //                {
+            //                    BlackQueen blackqueen = new BlackQueen(i, j, min.currentBoard, min);
+            //                    if (blackqueen.PossibilityOfMoving() == true)
+            //                    {
+            //                        List<Node> listNode = blackqueen.ReturnNode();
+            //                        foreach (var n in listNode)
+            //                        {
+            //                            n.score = n.score + min.score;
+            //                            tree.InsertLevel3(n);
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        #endregion
+            //        min = listLevel2[k];
+            //    }
+
+            //    if (k + 1 == listLevel2.Length)
+            //    {
+            //        #region MAX algorithm
+            //        for (var i = 0; i < 8; i++)
+            //        {
+            //            for (var j = 0; j < 8; j++)
+            //            {
+            //                if (min.currentBoard[i, j] == FieldType.BlackPawn)
+            //                {
+            //                    BlackPawn blackpawn = new BlackPawn(i, j, min.currentBoard, min);
+            //                    if (blackpawn.PossibilityOfMoving() == true)
+            //                    {
+            //                        List<Node> listNode = blackpawn.ReturnNode();
+            //                        foreach (var n in listNode)
+            //                        {
+            //                            n.score = n.score + min.score;
+            //                            tree.InsertLevel3(n);
+            //                        }
+            //                    }
+            //                }
+            //                else if (min.currentBoard[i, j] == FieldType.BlackQueen)
+            //                {
+            //                    BlackQueen blackqueen = new BlackQueen(i, j, min.currentBoard, min);
+            //                    if (blackqueen.PossibilityOfMoving() == true)
+            //                    {
+            //                        List<Node> listNode = blackqueen.ReturnNode();
+            //                        foreach (var n in listNode)
+            //                        {
+            //                            n.score = n.score + min.score;
+            //                            tree.InsertLevel3(n);
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        #endregion
+            //    }
+            //}
+            ////NIE DZIAŁA
+            //listLevel3 = tree.ToArrayLevel3();
+            //Node maxNode = null;
+            //foreach(var n in tree.GetLevel1())
+            //{
+            //    if (maxNode == null)
+            //    {
+            //        maxNode = n;
+            //    }
+            //    else if(n.score > maxNode.score)
+            //    {
+            //        maxNode = n;
+            //    }
+            //}
+
+            FieldType[,] newBoard = BoardTo8x4(listLevel1[0].currentBoard);
+            boardStatus = newBoard;
         }
 
         private FieldType[,] BoardTo8x8(FieldType[,] board)
@@ -1246,5 +1413,6 @@ namespace warcaby
             }
             return newBoard;
         }
+        #endregion
     }
 }

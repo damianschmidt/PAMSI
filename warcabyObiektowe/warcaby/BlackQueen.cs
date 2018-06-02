@@ -32,7 +32,7 @@ namespace warcaby
         #endregion
 
         // Constructor
-        public BlackQueen(int column, int row, FieldType[,] board, Node node = null)
+        public BlackQueen(int row, int column, FieldType[,] board, Node node = null)
         {
             this.column = column;
             this.row = row;
@@ -677,6 +677,11 @@ namespace warcaby
             {
                 return edge1;
             }
+        }
+
+        public List<Node> ReturnNode()
+        {
+            return listNode;
         }
     }
 }

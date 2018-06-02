@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace warcaby
 {
@@ -34,17 +35,18 @@ namespace warcaby
         #endregion
 
         // Constructor
-        public BlackPawn(int column, int row, FieldType[,] board, Node node = null)
+        public BlackPawn(int row, int column, FieldType[,] board, Node node = null)
         {
             this.column = column;
             this.row = row;
             this.boardStatus = board;
             this.parent = node;
+            this.listNode = new List<Node>();
         }
 
         public bool PossibilityOfMoving()
         {
-            if(Move() + Hit(boardStatus) != 0) { return true; }
+            if(Move() /*+ Hit(boardStatus)*/ != 0) { return true; }
             else { return false; }
         }
 
@@ -71,6 +73,7 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column - 1] == FieldType.Free && column < 4)
                 {
@@ -83,6 +86,7 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
 
                 if (boardStatus[row + 1, column + 1] == FieldType.Free && column > 3)
@@ -96,6 +100,7 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column + 1] == FieldType.Free && column < 4)
                 {
@@ -108,6 +113,7 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if(column == 0 && row < 6)
@@ -123,6 +129,7 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if(column == 7 && row < 6)
@@ -138,6 +145,7 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if (column != 0 && column != 7 && row == 6)
@@ -148,11 +156,12 @@ namespace warcaby
                     
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column - 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column - 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column - 1] == FieldType.Free && column < 4)
                 {
@@ -160,11 +169,12 @@ namespace warcaby
                     
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column - 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column - 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
 
                 if (boardStatus[row + 1, column + 1] == FieldType.Free && column > 3)
@@ -173,11 +183,12 @@ namespace warcaby
                     
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column + 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column + 1] == FieldType.Free && column < 4)
                 {
@@ -185,11 +196,12 @@ namespace warcaby
                     
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column + 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if (column == 0 && row == 6)
@@ -200,11 +212,12 @@ namespace warcaby
                     
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column + 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column + 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if (column == 7 && row == 6)
@@ -215,11 +228,12 @@ namespace warcaby
                     
                     FieldType[,] newBoard = boardStatus;
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column - 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column - 1] = FieldType.BlackPawn;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
+                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             return points;
@@ -329,7 +343,7 @@ namespace warcaby
             }
             else if(column < 2 && row < 5)
             {
-                if (board[row + 1, column + 1] == FieldType.WhitePawn || board[row + 1, column - 1] == FieldType.WhiteQueen)
+                if (board[row + 1, column + 1] == FieldType.WhitePawn || board[row + 1, column + 1] == FieldType.WhiteQueen)
                 {
                     if (board[row + 2, column + 2] == FieldType.Free)
                     {
@@ -567,6 +581,7 @@ namespace warcaby
 
         public List<Node> ReturnNode()
         {
+            MessageBox.Show(listNode.Count.ToString(), "W pionku");
             return listNode;
         }
     }

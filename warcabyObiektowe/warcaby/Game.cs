@@ -40,8 +40,7 @@ namespace warcaby
             Score();
             if(board.computerTurn == true)
             {
-                //AI funcion
-                MessageBox.Show("Myślisz, że możesz ze mną wygrać?!", "Tura computera");
+                board.ComputerTurn();    
                 board.computerTurn = false;
             }
             Score();
