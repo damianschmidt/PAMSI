@@ -325,7 +325,7 @@ namespace warcaby
             }
             else if (column < 2 && row > 2)
             {
-                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column - 1] == FieldType.BlackQueen)
+                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
                 {
                     if (board[row - 2, column + 2] == FieldType.Free)
                     {

@@ -73,7 +73,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column - 1] == FieldType.Free && column < 4)
                 {
@@ -86,7 +85,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
 
                 if (boardStatus[row + 1, column + 1] == FieldType.Free && column > 3)
@@ -100,7 +98,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column + 1] == FieldType.Free && column < 4)
                 {
@@ -113,7 +110,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if(column == 0 && row < 6)
@@ -129,7 +125,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if(column == 7 && row < 6)
@@ -145,7 +140,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if (column != 0 && column != 7 && row == 6)
@@ -161,7 +155,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column - 1] == FieldType.Free && column < 4)
                 {
@@ -174,7 +167,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
 
                 if (boardStatus[row + 1, column + 1] == FieldType.Free && column > 3)
@@ -188,7 +180,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
                 else if (boardStatus[row + 1, column + 1] == FieldType.Free && column < 4)
                 {
@@ -201,7 +192,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if (column == 0 && row == 6)
@@ -217,7 +207,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             else if (column == 7 && row == 6)
@@ -233,7 +222,6 @@ namespace warcaby
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
-                    MessageBox.Show(row.ToString() + " " + column.ToString(), "W pionku");
                 }
             }
             return points;
@@ -581,7 +569,6 @@ namespace warcaby
 
         public List<Node> ReturnNode()
         {
-            MessageBox.Show(listNode.Count.ToString(), "W pionku");
             return listNode;
         }
     }
