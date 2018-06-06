@@ -8,5 +8,11 @@ namespace warcaby
 {
     class Ranking
     {
+        private string username;
+
+        public void getUsername(string username)
+        {
+            this.username = username;
+        }
     }
 }

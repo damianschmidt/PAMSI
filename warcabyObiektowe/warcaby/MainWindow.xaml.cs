@@ -98,5 +98,9 @@ namespace warcaby
                 timer.Content = currentTime;
             }
         }
+        public string getCurrentTime()
+        {
+            return currentTime;
+        }
     }
 }
