@@ -13,7 +13,7 @@ namespace warcaby
         private MainWindow mainWindow;
         private Board board;
         private bool end = false;
-        private Ranking ranking;
+        public Ranking ranking;
 
         public Game(MainWindow mainWindow)
         {
@@ -59,13 +59,15 @@ namespace warcaby
 
             if(playerScore == 12)
             {
+                ranking = new Ranking();
                 this.mainWindow.stopWatch.Stop();
                 //MessageBox.Show("Gratulacje, wygrałeś!", "Koniec gry!");
                 username = Microsoft.VisualBasic.Interaction.InputBox("Gratulacje, wygrałeś ! Jeśli chcesz znaleźć się w rankingu, wpisz swoje imię poniżej:", "Koniec gry", "Imię");
                 currentTime = this.mainWindow.getCurrentTime();
-                //ranking.getUsername(username);
-                MessageBox.Show(username);
-                MessageBox.Show(currentTime);
+                ranking.GetUsername(username);
+                ranking.SaveResults();
+                MessageBox.Show(username);      // To check if get name correctly
+                MessageBox.Show(currentTime);   // To chcek if get time correctly
                 end = true;
             }
             else if(computerScore == 12)
