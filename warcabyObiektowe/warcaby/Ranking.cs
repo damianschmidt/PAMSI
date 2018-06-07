@@ -9,7 +9,8 @@ namespace warcaby
 {
     class Player
     {
-        public string name;
+        public string name, time_string;
+        public int time;
     }
     class Ranking
     {
@@ -29,45 +30,71 @@ namespace warcaby
             player.name = username;
         }
 
-        public int ConvertTime(string time)
-        {
-            string minutes, seconds;
-            string[] newtime = time.Split(':'); // Separate by :
-            if (newtime.Length != 2)
-            {
-                minutes = newtime[0];
-                seconds = newtime[1];
-                int x = Int32.Parse(minutes);   // Convert to int, didn't check if works correctly
-                int y = Int32.Parse(seconds);
-                this.minutes = x;               // Temporary names x => minutes
-                this.seconds = y;               // Temporary names y => seconds
-                return y;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        public void SaveResults()   // Save results into ...\bin\Debug\Data\ranking.txt
+        public void SaveResults(string username, string time)   // Save results into ...\bin\Debug\Data\ranking.txt
         {
             string filename = "ranking.txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
-            List<string> PlayerList = new List<string>();
-            PlayerList.Add(username);
+            string data = username + " " + time + Environment.NewLine;
 
 
-            if(File.Exists(path))   // Deleting file if exists, temporary
+            if (!File.Exists(path))   // If file doesn't exist, create it
             {
-                File.Delete(path);
+                File.WriteAllText(path, data);
             }
 
-            using (FileStream fs = File.Create(path, 1024))
-            {
-                Byte[] info = new UTF8Encoding(true).GetBytes("Default text in file");
-                fs.Write(info, 0, info.Length);
-            }
+            File.AppendAllText(path, data);
         }
 
+        public string ReadResults()
+        {
+            string filename = "ranking.txt";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string readrank = File.ReadAllText(path);
+
+            return readrank;
+        }
+
+        public void SaveToList(string readrank)
+        {
+            Player newplayer = new Player();
+            List<Player> playerlist = new List<Player>();
+            string value = readrank;
+            string[] substrings = value.Split(' ');
+            for (int i = 0; i < substrings.Length; i++)     // Don't know if and how works
+            {
+                if(i == 0 || i % 2 == 0)
+                {
+                    // NAME
+                    newplayer.name = substrings[i];
+                }
+                else
+                {
+                    // times
+                    newplayer.time_string = substrings[i];
+                    newplayer.time = ConvertStringToThousands(substrings[i]);
+                }
+                playerlist.Add(newplayer);
+            }
+            Console.WriteLine(playerlist.Count());
+            playerlist.Sort();
+            foreach (var substring in substrings)
+                Console.WriteLine(substring);
+        }
+
+        public int ConvertStringToThousands(string time)
+        {
+            int value = 0;
+            string tmp, tmp1;
+            var chars = time.ToCharArray();
+            tmp = Convert.ToString(chars[0]);
+            tmp1 = Convert.ToString(chars[1]);
+            tmp =tmp + tmp1;
+            tmp1 = Convert.ToString(chars[3]);
+            tmp = tmp + tmp1;
+            tmp1 = Convert.ToString(chars[4]);
+            tmp = tmp + tmp1;
+            value = Convert.ToInt32(tmp);
+            return value;
+        }
     }
 }

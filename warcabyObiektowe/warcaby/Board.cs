@@ -48,12 +48,15 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.BlackPawn;
-                    boardStatus[(7 - i), j] = FieldType.WhitePawn;
+                    boardStatus[i, j] = FieldType.BlackQueen;
+                    boardStatus[(7 - i), j] = FieldType.Free;
                     if (i < 2)
                     {
                         boardStatus[(i + 3), j] = FieldType.Free;
                     }
+                    boardStatus[3, j] = FieldType.WhitePawn;
+                    boardStatus[5, j] = FieldType.WhitePawn;
+                    boardStatus[7, j] = FieldType.WhitePawn;
                 }
             }
             #region Iterate every button on the grid
@@ -752,6 +755,14 @@ namespace warcaby
                             LoadPicture(move, buttonName[(row + 2), (column + 1)]);
                         }
                 }
+                else if ((top == true) && (rightside == true))
+                {
+                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    {
+                        boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                        LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                    }
+                }
                 else if (top == true)
                 {
                     if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
@@ -1191,6 +1202,7 @@ namespace warcaby
             Node[] listLevel1 = null;
             Node[] listLevel2 = null;
             Node[] listLevel3 = null;
+            bool block = false;
             FieldType[,] board = BoardTo8x8(boardStatus);
             #region MAX algorithm
             for (var i = 0; i < 8; i++)
@@ -1229,6 +1241,27 @@ namespace warcaby
             }
             #endregion
             listLevel1 = tree.ToArrayLevel1();
+            if (listLevel1.Length == 0) //Check that is there end of game by blocking possible of moving
+            {
+                for (var i = 0; i < 8; i++)
+                {
+                    for (var j = 0; j < 8; j++)
+                    {
+                        if (board[i, j] == FieldType.BlackPawn)
+                        {
+                            board[i, j] = FieldType.Free;
+                            boardStatus = BoardTo8x4(board);
+                            block = true;
+                        }
+                        else if (board[i, j] == FieldType.BlackQueen)
+                        {
+                            board[i, j] = FieldType.Free;
+                            boardStatus = BoardTo8x4(board);
+                            block = true;
+                        }
+                    }
+                }
+            }
             for (var k = 0; k < listLevel1.Length; k++)
             {
                 #region MIN algorithm
@@ -1385,7 +1418,7 @@ namespace warcaby
                 FieldType[,] newBoard = BoardTo8x4(maxNode.parent.parent.currentBoard);
                 boardStatus = newBoard;
             }
-            else
+            else if (block == false)
             {
                 FieldType[,] newBoard = BoardTo8x4(listLevel1[0].currentBoard);
                 boardStatus = newBoard;

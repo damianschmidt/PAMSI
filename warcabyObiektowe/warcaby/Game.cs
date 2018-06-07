@@ -65,9 +65,11 @@ namespace warcaby
                 username = Microsoft.VisualBasic.Interaction.InputBox("Gratulacje, wygrałeś ! Jeśli chcesz znaleźć się w rankingu, wpisz swoje imię poniżej:", "Koniec gry", "Imię");
                 currentTime = this.mainWindow.getCurrentTime();
                 ranking.GetUsername(username);
-                ranking.SaveResults();
+                ranking.SaveResults(username, currentTime);
                 MessageBox.Show(username);      // To check if get name correctly
                 MessageBox.Show(currentTime);   // To chcek if get time correctly
+                var readrank = ranking.ReadResults();
+                ranking.SaveToList(readrank);
                 end = true;
             }
             else if(computerScore == 12)
