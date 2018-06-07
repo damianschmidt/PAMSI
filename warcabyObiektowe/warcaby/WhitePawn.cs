@@ -249,11 +249,11 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
-                else if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
+                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
                 {
                     if (board[row - 2, column + 2] == FieldType.Free)
                     {
@@ -271,7 +271,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -296,11 +296,11 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
-                else if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
+                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
                 {
                     if (board[row - 2, column + 2] == FieldType.Free)
                     {
@@ -318,7 +318,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -343,7 +343,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -368,7 +368,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -393,11 +393,11 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
-                else if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
+                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
                 {
                     if (board[row - 2, column + 2] == FieldType.Free)
                     {
@@ -415,7 +415,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -440,11 +440,11 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
-                else if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
+                if (board[row - 1, column + 1] == FieldType.BlackPawn || board[row - 1, column + 1] == FieldType.BlackQueen)
                 {
                     if (board[row - 2, column + 2] == FieldType.Free)
                     {
@@ -462,7 +462,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -487,7 +487,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -512,7 +512,7 @@ namespace warcaby
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
+                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }

@@ -48,15 +48,12 @@ namespace warcaby
             {
                 for (var j = 0; j < 4; j++)
                 {
-                    boardStatus[i, j] = FieldType.BlackQueen;
-                    boardStatus[(7 - i), j] = FieldType.Free;
+                    boardStatus[i, j] = FieldType.BlackPawn;
+                    boardStatus[(7 - i), j] = FieldType.WhitePawn;
                     if (i < 2)
                     {
                         boardStatus[(i + 3), j] = FieldType.Free;
                     }
-                    boardStatus[3, j] = FieldType.WhitePawn;
-                    boardStatus[5, j] = FieldType.WhitePawn;
-                    boardStatus[7, j] = FieldType.WhitePawn;
                 }
             }
             #region Iterate every button on the grid
