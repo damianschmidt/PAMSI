@@ -20,8 +20,8 @@ namespace warcaby
         private int type = -10;
         private int move = -2;
         private int moveEdge = -3;
-        private int hit = -20;
-        private int hitEdge = -30;
+        private int hit = -25;
+        private int hitEdge = -35;
         private int edge3 = -4;
         private int edge2 = -2;
         private int edge1 = 0;
