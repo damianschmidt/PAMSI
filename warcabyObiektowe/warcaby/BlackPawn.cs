@@ -25,6 +25,7 @@ namespace warcaby
         private int hit = 20;
         private int hitMid = 25;
         private int hitEdge = 30;
+        private int hitMulti = 30;
         private int level4 = 10;
         private int level3 = 4;
         private int level2 = 2;
@@ -46,7 +47,7 @@ namespace warcaby
 
         public bool PossibilityOfMoving()
         {
-            if(Move() + Hit(boardStatus) != 0) { return true; }
+            if(Move() + Hit(boardStatus, row, column) != 0) { return true; }
             else { return false; }
         }
 
@@ -227,7 +228,7 @@ namespace warcaby
             return points;
         }
 
-        private int Hit(FieldType[,] board)
+        private int Hit(FieldType[,] board, int row, int column)
         {
             int points = 0;
 
@@ -246,13 +247,13 @@ namespace warcaby
                         boardAfter = Clone(newBoard);
                         
                         // Multicapturing
-                        if(Hit(Clone(newBoard)) != 0)
-                        {
-                            points = points + Hit(Clone(newBoard));
+                        if(Hit(Clone(boardAfter), row + 2, column - 2) != 0)
+                        {       
+                            points = points + hitMulti;
                         }
                         
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -266,16 +267,16 @@ namespace warcaby
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackPawn;
-                        boardAfter = newBoard;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -292,16 +293,16 @@ namespace warcaby
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackPawn;
-                        boardAfter = newBoard;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column - 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
-
+                        
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -315,16 +316,16 @@ namespace warcaby
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackPawn;
-                        boardAfter = newBoard;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -341,16 +342,16 @@ namespace warcaby
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
                         newBoard[row + 2, column + 2] = FieldType.BlackPawn;
-                        boardAfter = newBoard;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -367,16 +368,16 @@ namespace warcaby
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
                         newBoard[row + 2, column - 2] = FieldType.BlackPawn;
-                        boardAfter = newBoard;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column - 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -392,17 +393,17 @@ namespace warcaby
                         FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
-                        newBoard[row + 2, column - 2] = FieldType.BlackQueen;
-                        boardAfter = newBoard;
+                        newBoard[row + 2, column - 2] = FieldType.BlackPawn;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column - 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -415,17 +416,17 @@ namespace warcaby
                         FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
-                        newBoard[row + 2, column + 2] = FieldType.BlackQueen;
-                        boardAfter = newBoard;
+                        newBoard[row + 2, column + 2] = FieldType.BlackPawn;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -441,17 +442,17 @@ namespace warcaby
                         FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
-                        newBoard[row + 2, column - 2] = FieldType.BlackQueen;
-                        boardAfter = newBoard;
+                        newBoard[row + 2, column - 2] = FieldType.BlackPawn;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column - 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -464,17 +465,17 @@ namespace warcaby
                         FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
-                        newBoard[row + 2, column + 2] = FieldType.BlackQueen;
-                        boardAfter = newBoard;
+                        newBoard[row + 2, column + 2] = FieldType.BlackPawn;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -490,16 +491,17 @@ namespace warcaby
                         FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column + 1] = FieldType.Free;
-                        boardAfter = newBoard;
+                        newBoard[row + 2, column + 2] = FieldType.BlackPawn;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }
@@ -515,17 +517,17 @@ namespace warcaby
                         FieldType[,] newBoard = Clone(board);
                         newBoard[row, column] = FieldType.Free;
                         newBoard[row + 1, column - 1] = FieldType.Free;
-                        newBoard[row + 2, column - 2] = FieldType.BlackQueen;
-                        boardAfter = newBoard;
+                        newBoard[row + 2, column - 2] = FieldType.BlackPawn;
+                        boardAfter = Clone(newBoard);
 
                         // Multicapturing
-                        if (Hit(newBoard) != 0)
+                        if (Hit(Clone(boardAfter), row + 2, column + 2) != 0)
                         {
-                            points = points + Hit(newBoard);
+                            points = points + hitMulti;
                         }
 
                         int newScore = points + CountScore();
-                        Node newNode = new Node(parent, newBoard, newScore); // Make new node
+                        Node newNode = new Node(parent, boardAfter, newScore); // Make new node
                         listNode.Add(newNode); // Add to list of possible moves
                     }
                 }

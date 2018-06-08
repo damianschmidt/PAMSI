@@ -746,31 +746,43 @@ namespace warcaby
             {
                 if ((top == true) && (leftside == true))
                 {
-                        if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
-                        {
+                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if(boardStatus[(row + 2), (column +1)] == FieldType.Free)
+                        { 
                             boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
                             LoadPicture(move, buttonName[(row + 2), (column + 1)]);
                         }
+                    }
                 }
                 else if ((top == true) && (rightside == true))
                 {
-                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
                     {
-                        boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
-                        LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        }
                     }
                 }
                 else if (top == true)
                 {
                     if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
                     {
-                        boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
-                        LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        }
                     }
                     if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
                     {
-                        boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
-                        LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        if (boardStatus[(row + 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        }
                     }
                 }
                 else if((bottom == true) && (rightside == true))

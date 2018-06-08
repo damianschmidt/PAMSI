@@ -61,7 +61,6 @@ namespace warcaby
             {
                 ranking = new Ranking();
                 this.mainWindow.stopWatch.Stop();
-                //MessageBox.Show("Gratulacje, wygrałeś!", "Koniec gry!");
                 username = Microsoft.VisualBasic.Interaction.InputBox("Gratulacje, wygrałeś ! Jeśli chcesz znaleźć się w rankingu, wpisz swoje imię poniżej:", "Koniec gry", "Imię");
                 currentTime = this.mainWindow.getCurrentTime();
                 ranking.GetUsername(username);
