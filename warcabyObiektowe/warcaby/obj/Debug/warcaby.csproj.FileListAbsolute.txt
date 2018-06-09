@@ -50,3 +50,18 @@ C:\Users\Filip\Desktop\PWR\IV semestr\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\
 C:\Users\Filip\Desktop\PWR\IV semestr\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.csproj.CoreCompileInputs.cache
 C:\Users\Filip\Desktop\PWR\IV semestr\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.exe
 C:\Users\Filip\Desktop\PWR\IV semestr\PAMSI\nowy\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.pdb
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\bin\Debug\warcaby.exe.config
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\bin\Debug\warcaby.exe
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\bin\Debug\warcaby.pdb
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.csprojAssemblyReference.cache
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\MainWindow.g.cs
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\App.g.cs
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby_MarkupCompile.cache
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby_MarkupCompile.lref
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\MainWindow.baml
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.g.resources
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.Properties.Resources.resources
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.csproj.GenerateResource.cache
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.csproj.CoreCompileInputs.cache
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.exe
+C:\Users\Filip\Desktop\PWR\PAMSI\aktual\PAMSI\warcabyObiektowe\warcaby\obj\Debug\warcaby.pdb

@@ -37,6 +37,8 @@ namespace warcaby
         private void Ranking_Button_Click(object sender, RoutedEventArgs e)
         {
             RankingTab.IsSelected = true;
+
+            // SHOW RANK
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

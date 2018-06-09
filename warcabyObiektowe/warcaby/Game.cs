@@ -65,10 +65,8 @@ namespace warcaby
                 currentTime = this.mainWindow.getCurrentTime();
                 ranking.GetUsername(username);
                 ranking.SaveResults(username, currentTime);
-                MessageBox.Show(username);      // To check if get name correctly
-                MessageBox.Show(currentTime);   // To chcek if get time correctly
                 var readrank = ranking.ReadResults();
-                ranking.SaveToList(readrank);
+                ranking.Sort(readrank, username, currentTime);
                 end = true;
             }
             else if(computerScore == 12)

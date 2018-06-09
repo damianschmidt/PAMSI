@@ -36,7 +36,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <TabControl Margin="-3,-10,-3,-3">
+        <TabControl Margin="-3,-10,-3,-3" SelectionChanged="TabControl_SelectionChanged">
             <TabItem x:Name="MenuTab"  Visibility="Hidden">
                 <Grid x:Name="MenuGrid">
                     <Grid.Background>
