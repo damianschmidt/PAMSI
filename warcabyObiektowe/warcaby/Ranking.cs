@@ -7,17 +7,11 @@ using System.Threading.Tasks;
 
 namespace warcaby
 {
-    //class Player
-    //{
-    //    public string name, time_string;
-    //    public int time;
-    //}
     class Ranking
     {
         public string username { get; set; }   // Username as string
         public string time_str { get; set; }   // Time as string
         public int time_int { get; set; }      // Time converted to int
-        //Player player = new Player();
 
         public Ranking()
         {
@@ -57,14 +51,11 @@ namespace warcaby
             string filename = "ranking.txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
             string readrank = File.ReadAllText(path);
-            Console.WriteLine(readrank);
             return readrank;
         }
 
         public void Sort(string readrank, string current_username, string current_time)
         {
-            //Player newplayer = new Player();
-            //List<Player> playerlist = new List<Player>();
             Ranking newranking = new Ranking();
             string value = readrank;
             string[] substrings = value.Split(';');
@@ -97,12 +88,6 @@ namespace warcaby
                 }
             }
             query = null;
-
-            //foreach (Ranking rank in query)
-            //{
-            //    string data = rank.username + ";" + rank.time_str + ";" + Environment.NewLine;
-            //    File.AppendAllText(path, data);
-            //}
         }
 
         public int ConvertStringToThousands(string time)
@@ -120,5 +105,27 @@ namespace warcaby
             value = Convert.ToInt32(tmp);
             return value;
         }
+
+        public string ReadRanking()
+        {
+            string filename = "sorted_ranking.txt";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string readrank = File.ReadAllText(path);
+            return readrank;
+        }
+
+        public void ShowRank(string readrank)   // TU CZYTAJ KOMENTARZE DAMIANIE
+        {
+            string value = readrank;
+            string[] substring = value.Split(';');
+            Console.WriteLine(substring[0]);        // substring[0] to napis RANKING, tego nie używaj
+            Console.WriteLine(substring[1]);        // substring[1] == username1
+            Console.WriteLine(substring[2]);        // substring[2] == time_username1
+            Console.WriteLine(substring[3]);        // substring[3] == username2
+            Console.WriteLine(substring[4]);        // substring[4] == time_username2
+            Console.WriteLine(substring[5]);        // ...
+            Console.WriteLine(substring[6]);        // ...
+            Console.WriteLine(substring[7]);        // substring[19] == username10
+        }                                           // substring[20] == time_username10
     }
 }

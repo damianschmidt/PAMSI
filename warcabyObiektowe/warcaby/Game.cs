@@ -48,7 +48,7 @@ namespace warcaby
             }
         }
 
-        private void Score()
+        private void Score()        // CZYTAJ KOMENTARZE NA DOLE DAMIANIE
         {
             string username, currentTime;
             playerScore = board.PlayerScore();
@@ -67,6 +67,8 @@ namespace warcaby
                 ranking.SaveResults(username, currentTime);
                 var readrank = ranking.ReadResults();
                 ranking.Sort(readrank, username, currentTime);
+                var results = ranking.ReadRanking();    // Wczytywanie rankingu z sorted_ranking.txt
+                ranking.ShowRank(results);              // Wyświetlanie rankingu, czyli te wszytskie substringi
                 end = true;
             }
             else if(computerScore == 12)
