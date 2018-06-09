@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace warcaby
 {
@@ -12,12 +13,13 @@ namespace warcaby
         public string username { get; set; }   // Username as string
         public string time_str { get; set; }   // Time as string
         public int time_int { get; set; }      // Time converted to int
-
-        public Ranking()
+        private MainWindow mainWindow;
+        public Ranking(MainWindow mainWindow)
         {
             this.username = "default";
             this.time_int = 0;
             this.time_str = "0";
+            this.mainWindow = mainWindow;
         }
 
         public Ranking(string name, string timestr, int timeint)
@@ -56,20 +58,20 @@ namespace warcaby
 
         public void Sort(string readrank, string current_username, string current_time)
         {
-            Ranking newranking = new Ranking();
+            Ranking newranking = new Ranking(mainWindow);
             string value = readrank;
             string[] substrings = value.Split(';');
-            Ranking[] times = { new Ranking { username = substrings[0], time_str = substrings[1], time_int = ConvertStringToThousands(substrings[1])},
-                                new Ranking { username = substrings[2], time_str = substrings[3], time_int = ConvertStringToThousands(substrings[3])},
-                                new Ranking { username = substrings[4], time_str = substrings[5], time_int = ConvertStringToThousands(substrings[5])},
-                                new Ranking { username = substrings[6], time_str = substrings[7], time_int = ConvertStringToThousands(substrings[7])},
-                                new Ranking { username = substrings[8], time_str = substrings[9], time_int = ConvertStringToThousands(substrings[9])},
-                                new Ranking { username = substrings[10], time_str = substrings[11], time_int = ConvertStringToThousands(substrings[11])},
-                                new Ranking { username = substrings[12], time_str = substrings[13], time_int = ConvertStringToThousands(substrings[13])},
-                                new Ranking { username = substrings[14], time_str = substrings[15], time_int = ConvertStringToThousands(substrings[15])},
-                                new Ranking { username = substrings[16], time_str = substrings[17], time_int = ConvertStringToThousands(substrings[17])},
-                                new Ranking { username = substrings[18], time_str = substrings[19], time_int = ConvertStringToThousands(substrings[19])},
-                                new Ranking { username = current_username, time_str = current_time, time_int = ConvertStringToThousands(current_time) } };
+            Ranking[] times = { new Ranking(username = substrings[0], time_str = substrings[1], time_int =      ConvertStringToThousands(substrings[1])),
+                                new Ranking(username = substrings[2], time_str = substrings[3], time_int = ConvertStringToThousands(substrings[3])),
+                                new Ranking(username = substrings[4], time_str = substrings[5], time_int = ConvertStringToThousands(substrings[5])),
+                                new Ranking(username = substrings[6], time_str = substrings[7], time_int = ConvertStringToThousands(substrings[7])),
+                                new Ranking(username = substrings[8], time_str = substrings[9], time_int = ConvertStringToThousands(substrings[9])),
+                                new Ranking(username = substrings[10], time_str = substrings[11], time_int = ConvertStringToThousands(substrings[11])),
+                                new Ranking(username = substrings[12], time_str = substrings[13], time_int = ConvertStringToThousands(substrings[13])),
+                                new Ranking(username = substrings[14], time_str = substrings[15], time_int = ConvertStringToThousands(substrings[15])),
+                                new Ranking(username = substrings[16], time_str = substrings[17], time_int = ConvertStringToThousands(substrings[17])),
+                                new Ranking(username = substrings[18], time_str = substrings[19], time_int = ConvertStringToThousands(substrings[19])),
+                                new Ranking(username = current_username, time_str = current_time, time_int = ConvertStringToThousands(current_time)) };
             IEnumerable<Ranking> query = times.OrderBy(time => time.time_int);
             foreach (Ranking rank in query)
                 Console.WriteLine(rank.username + " " + rank.time_int);
@@ -118,14 +120,26 @@ namespace warcaby
         {
             string value = readrank;
             string[] substring = value.Split(';');
-            Console.WriteLine(substring[0]);        // substring[0] to napis RANKING, tego nie używaj
-            Console.WriteLine(substring[1]);        // substring[1] == username1
-            Console.WriteLine(substring[2]);        // substring[2] == time_username1
-            Console.WriteLine(substring[3]);        // substring[3] == username2
-            Console.WriteLine(substring[4]);        // substring[4] == time_username2
-            Console.WriteLine(substring[5]);        // ...
-            Console.WriteLine(substring[6]);        // ...
-            Console.WriteLine(substring[7]);        // substring[19] == username10
-        }                                           // substring[20] == time_username10
+            ((Label)this.mainWindow.FindName("username1")).Content = substring[1];
+            ((Label)this.mainWindow.FindName("username1_time")).Content = substring[2];
+            ((Label)this.mainWindow.FindName("username2")).Content = substring[3];
+            ((Label)this.mainWindow.FindName("username2_time")).Content = substring[4];
+            ((Label)this.mainWindow.FindName("username3")).Content = substring[5];
+            ((Label)this.mainWindow.FindName("username3_time")).Content = substring[6];
+            ((Label)this.mainWindow.FindName("username4")).Content = substring[7];
+            ((Label)this.mainWindow.FindName("username4_time")).Content = substring[8];
+            ((Label)this.mainWindow.FindName("username5")).Content = substring[9];
+            ((Label)this.mainWindow.FindName("username5_time")).Content = substring[10];
+            ((Label)this.mainWindow.FindName("username6")).Content = substring[11];
+            ((Label)this.mainWindow.FindName("username6_time")).Content = substring[12];
+            ((Label)this.mainWindow.FindName("username7")).Content = substring[13];
+            ((Label)this.mainWindow.FindName("username7_time")).Content = substring[14];
+            ((Label)this.mainWindow.FindName("username8")).Content = substring[15];
+            ((Label)this.mainWindow.FindName("username8_time")).Content = substring[16];
+            ((Label)this.mainWindow.FindName("username9")).Content = substring[17];
+            ((Label)this.mainWindow.FindName("username9_time")).Content = substring[18];
+            ((Label)this.mainWindow.FindName("username10")).Content = substring[19];
+            ((Label)this.mainWindow.FindName("username10_time")).Content = substring[20];
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace warcaby
 
             if(playerScore == 12)
             {
-                ranking = new Ranking();
+                ranking = new Ranking(mainWindow);
                 this.mainWindow.stopWatch.Stop();
                 username = Microsoft.VisualBasic.Interaction.InputBox("Gratulacje, wygrałeś ! Jeśli chcesz znaleźć się w rankingu, wpisz swoje imię poniżej:", "Koniec gry", "Imię");
                 currentTime = this.mainWindow.getCurrentTime();
