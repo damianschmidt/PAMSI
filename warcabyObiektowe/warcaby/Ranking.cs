@@ -61,16 +61,17 @@ namespace warcaby
             Ranking newranking = new Ranking(mainWindow);
             string value = readrank;
             string[] substrings = value.Split(';');
-            Ranking[] times = { new Ranking(username = substrings[0], time_str = substrings[1], time_int =      ConvertStringToThousands(substrings[1])),
-                                new Ranking(username = substrings[2], time_str = substrings[3], time_int = ConvertStringToThousands(substrings[3])),
-                                new Ranking(username = substrings[4], time_str = substrings[5], time_int = ConvertStringToThousands(substrings[5])),
-                                new Ranking(username = substrings[6], time_str = substrings[7], time_int = ConvertStringToThousands(substrings[7])),
-                                new Ranking(username = substrings[8], time_str = substrings[9], time_int = ConvertStringToThousands(substrings[9])),
-                                new Ranking(username = substrings[10], time_str = substrings[11], time_int = ConvertStringToThousands(substrings[11])),
-                                new Ranking(username = substrings[12], time_str = substrings[13], time_int = ConvertStringToThousands(substrings[13])),
-                                new Ranking(username = substrings[14], time_str = substrings[15], time_int = ConvertStringToThousands(substrings[15])),
-                                new Ranking(username = substrings[16], time_str = substrings[17], time_int = ConvertStringToThousands(substrings[17])),
-                                new Ranking(username = substrings[18], time_str = substrings[19], time_int = ConvertStringToThousands(substrings[19])),
+            var i = substrings.Length;
+            Ranking[] times = { new Ranking(username = substrings[i-21], time_str = substrings[i-20], time_int = ConvertStringToThousands(substrings[i-20])),
+                                new Ranking(username = substrings[i-19], time_str = substrings[i-18], time_int = ConvertStringToThousands(substrings[i-18])),
+                                new Ranking(username = substrings[i-17], time_str = substrings[i-16], time_int = ConvertStringToThousands(substrings[i-16])),
+                                new Ranking(username = substrings[i-15], time_str = substrings[i-14], time_int = ConvertStringToThousands(substrings[i-14])),
+                                new Ranking(username = substrings[i-13], time_str = substrings[i-12], time_int = ConvertStringToThousands(substrings[i-12])),
+                                new Ranking(username = substrings[i-11], time_str = substrings[i-10], time_int = ConvertStringToThousands(substrings[i-10])),
+                                new Ranking(username = substrings[i-9], time_str = substrings[i-8], time_int = ConvertStringToThousands(substrings[i-8])),
+                                new Ranking(username = substrings[i-7], time_str = substrings[i-6], time_int = ConvertStringToThousands(substrings[i-6])),
+                                new Ranking(username = substrings[i-5], time_str = substrings[i-4], time_int = ConvertStringToThousands(substrings[i-4])),
+                                new Ranking(username = substrings[i-3], time_str = substrings[i-2], time_int = ConvertStringToThousands(substrings[i-2])),
                                 new Ranking(username = current_username, time_str = current_time, time_int = ConvertStringToThousands(current_time)) };
             IEnumerable<Ranking> query = times.OrderBy(time => time.time_int);
             foreach (Ranking rank in query)
@@ -116,7 +117,7 @@ namespace warcaby
             return readrank;
         }
 
-        public void ShowRank(string readrank)   // TU CZYTAJ KOMENTARZE DAMIANIE
+        public void ShowRank(string readrank)
         {
             string value = readrank;
             string[] substring = value.Split(';');

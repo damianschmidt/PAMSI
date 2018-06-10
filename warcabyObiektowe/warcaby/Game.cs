@@ -68,7 +68,7 @@ namespace warcaby
                 var readrank = ranking.ReadResults();
                 ranking.Sort(readrank, username, currentTime);
                 var results = ranking.ReadRanking();    // Wczytywanie rankingu z sorted_ranking.txt
-                ranking.ShowRank(results);              // Wyświetlanie rankingu, czyli te wszytskie substringi
+                ranking.ShowRank(results);              // Wyświetlanie rankingu
                 end = true;
             }
             else if(computerScore == 12)
