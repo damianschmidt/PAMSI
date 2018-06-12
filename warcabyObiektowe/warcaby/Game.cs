@@ -20,9 +20,10 @@ namespace warcaby
             this.mainWindow = mainWindow;
             board = new Board(mainWindow);
         }
-
+        
         public void InitGame()
         {
+
             //Set stopwatch to 0
             ((Label)this.mainWindow.FindName("timer")).Content = "00:00";
 

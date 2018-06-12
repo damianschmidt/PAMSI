@@ -22,7 +22,7 @@ namespace warcaby
         private Button[,] buttonName;
         private MainWindow mainWindow;
         public bool computerTurn = false;
-
+        public bool hitInterrupted = false;
         public Board(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -39,6 +39,9 @@ namespace warcaby
             //Reset score counter
             playerScore = 0;
             computerScore = 0;
+
+            //board reset
+            computerTurn = false;
 
             //Create a new blank array of free cells
             boardStatus = new FieldType[8, 4];
@@ -106,7 +109,10 @@ namespace warcaby
                 selCol = column;
                 selectedPawn = true;
                 boardStatus[row, column] = FieldType.SelectedPawn;
-                CheckPossibleOfPawnMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfPawnMoves(row, column);
+                }
             }
             else if (boardStatus[row, column] == FieldType.WhitePawn)
             {
@@ -119,8 +125,12 @@ namespace warcaby
 
                 selRow = row;
                 selCol = column;
-                CheckPossibleOfPawnMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfPawnMoves(row, column);
+                }
             }
+
             else if (boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedPawn == true)
             {
                 RemovePossibleOfMoves();
@@ -146,11 +156,13 @@ namespace warcaby
                 selCol = column;
                 selectedQueen = true;
                 boardStatus[row, column] = FieldType.SelectedQueen;
-                CheckPossibleOfQueenMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfQueenMoves(row, column);
+                }
             }
             else if (boardStatus[row, column] == FieldType.WhiteQueen)
-            {
-                RemovePossibleOfMoves();
+            {                RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-selected.jpg", button);
                 boardStatus[row, column] = FieldType.SelectedQueen;
 
@@ -159,9 +171,12 @@ namespace warcaby
 
                 selRow = row;
                 selCol = column;
-                CheckPossibleOfQueenMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfQueenMoves(row, column);
+                }
             }
-            else if(boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedQueen == true)
+            else if (boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedQueen == true)
             {
                 RemovePossibleOfMoves();
                 boardStatus[selRow, selCol] = FieldType.WhiteQueen;
@@ -484,6 +499,7 @@ namespace warcaby
 
         public void Move(Button button, int row, int column)
         {
+           
             MoveWhitePawn(button, row, column);
             MoveWhiteQueen(button, row, column);
             ChangePawnToQueen();
@@ -491,8 +507,10 @@ namespace warcaby
         #region Partial funcions of Move
         private void MoveWhitePawn(Button button, int row, int column)
         {
+          
             if ((boardStatus[row, column] == FieldType.Move) && selectedPawn == true)
             {
+
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
                 boardStatus[row, column] = FieldType.WhitePawn;
@@ -505,6 +523,7 @@ namespace warcaby
             }
             else if ((boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
             {
+                hitInterrupted = true;
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
                 boardStatus[row, column] = FieldType.WhitePawn;
@@ -513,7 +532,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfPawnHit(row, column);
-                if (CheckPossibleOfMultiPawnHit(row, column) != true) { selectedPawn = false; computerTurn = true; }
+                if (CheckPossibleOfMultiPawnHit(row, column) != true) { hitInterrupted = false; selectedPawn = false; computerTurn = true; }
             }
         }
         private void MoveWhiteQueen(Button button, int row, int column)
@@ -532,6 +551,7 @@ namespace warcaby
             }
             else if ((boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
             {
+                hitInterrupted = true;
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
                 boardStatus[row, column] = FieldType.WhiteQueen;
@@ -540,7 +560,7 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfQueenHit(row, column);
-                if (CheckPossibleOfMultiQueenHit(row, column) != true) { selectedQueen = false; computerTurn = true; }
+                if (CheckPossibleOfMultiQueenHit(row, column) != true) { hitInterrupted = false; selectedQueen = false; computerTurn = true; }
             }
         }
         private void ChangePawnToQueen()
@@ -1202,7 +1222,9 @@ namespace warcaby
         public void ComputerTurn()
         {
             AI();
+            ChangePawnToQueen();
             DrawBoard();
+            
         }
         #region AI functions
         private void AI()
