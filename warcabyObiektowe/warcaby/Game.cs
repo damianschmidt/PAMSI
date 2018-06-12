@@ -63,13 +63,16 @@ namespace warcaby
                 ranking = new Ranking(mainWindow);
                 this.mainWindow.stopWatch.Stop();
                 username = Microsoft.VisualBasic.Interaction.InputBox("Gratulacje, wygrałeś ! Jeśli chcesz znaleźć się w rankingu, wpisz swoje imię poniżej:", "Koniec gry", "Imię");
-                currentTime = this.mainWindow.getCurrentTime();
-                ranking.GetUsername(username);
-                ranking.SaveResults(username, currentTime);
-                var readrank = ranking.ReadResults();
-                ranking.Sort(readrank, username, currentTime);
-                var results = ranking.ReadRanking();    // Wczytywanie rankingu z sorted_ranking.txt
-                ranking.ShowRank(results);              // Wyświetlanie rankingu
+                if(username.Length != 0)
+                {
+                    currentTime = this.mainWindow.getCurrentTime();
+                    ranking.GetUsername(username);
+                    ranking.SaveResults(username, currentTime);
+                    var readrank = ranking.ReadResults();
+                    ranking.Sort(readrank, username, currentTime);
+                    var results = ranking.ReadRanking();    // Wczytywanie rankingu z sorted_ranking.txt
+                    ranking.ShowRank(results);              // Wyświetlanie rankingu
+                }
                 end = true;
             }
             else if(computerScore == 12)

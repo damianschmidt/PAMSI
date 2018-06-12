@@ -37,12 +37,15 @@ namespace warcaby
         {
             string filename = "ranking.txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
-            string data = username + ";" + time + ";" + Environment.NewLine;
+            string data = username + ";" + time + ";";
+            string data2 = "default;99:99;";
 
 
             if (!File.Exists(path))   // If file doesn't exist, create it
             {
-                File.WriteAllText(path, data);
+
+                for (var i = 0; i < 15; i++)
+                    File.AppendAllText(path, data2);
             }
 
             File.AppendAllText(path, data);
@@ -52,6 +55,7 @@ namespace warcaby
         {
             string filename = "ranking.txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string data = "default;99:99;";
             string readrank = File.ReadAllText(path);
             return readrank;
         }
@@ -85,7 +89,7 @@ namespace warcaby
                 File.WriteAllText(path, "RANKING;");
                 foreach (Ranking rank in query)
                 {
-                    string data = rank.username + ";" + rank.time_str + ";";// + Environment.NewLine;
+                    string data = rank.username + ";" + rank.time_str + ";";
                     File.AppendAllText(path, data);
                 }
             }
@@ -112,6 +116,13 @@ namespace warcaby
         {
             string filename = "sorted_ranking.txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string data = "default;99:99;";
+            if (!File.Exists(path))
+            {
+                File.WriteAllText(path, "RANKING;");
+                for(var i = 0; i < 15; i++)
+                    File.AppendAllText(path, data);
+            }
             string readrank = File.ReadAllText(path);
             return readrank;
         }

@@ -1,11 +1,1 @@
-RANKING;
-Imię;00:24;
-Mantre;00:28;
-Imię;00:31;
-trolo;00:35;
-kkkkkk;00:37;
-new;00:39;
-newtime;00:51;
-Filip;00:54;
-czasss;01:21;
-Imię;02:39;
+RANKING;Filip;00:38;default;99:99;default;99:99;default;99:99;default;99:99;default;99:99;default;99:99;default;99:99;default;99:99;default;99:99;
