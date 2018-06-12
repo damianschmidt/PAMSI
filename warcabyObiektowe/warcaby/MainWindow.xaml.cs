@@ -16,12 +16,14 @@ namespace warcaby
         private string currentTime = string.Empty;
         private Game game;
         private bool end;
+        private Ranking ranking;
 
 
         public MainWindow()
         {
             InitializeComponent();
             game = new Game(this);
+            ranking = new Ranking(this);
         }
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
@@ -39,6 +41,9 @@ namespace warcaby
             RankingTab.IsSelected = true;
 
             // SHOW RANK
+            var results = ranking.ReadRanking();
+            ranking.ShowRank(results);
+
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

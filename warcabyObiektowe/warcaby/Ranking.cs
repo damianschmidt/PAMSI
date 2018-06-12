@@ -71,8 +71,7 @@ namespace warcaby
                                 new Ranking(username = substrings[i-9], time_str = substrings[i-8], time_int = ConvertStringToThousands(substrings[i-8])),
                                 new Ranking(username = substrings[i-7], time_str = substrings[i-6], time_int = ConvertStringToThousands(substrings[i-6])),
                                 new Ranking(username = substrings[i-5], time_str = substrings[i-4], time_int = ConvertStringToThousands(substrings[i-4])),
-                                new Ranking(username = substrings[i-3], time_str = substrings[i-2], time_int = ConvertStringToThousands(substrings[i-2])),
-                                new Ranking(username = current_username, time_str = current_time, time_int = ConvertStringToThousands(current_time)) };
+                                new Ranking(username = substrings[i-3], time_str = substrings[i-2], time_int = ConvertStringToThousands(substrings[i-2])) };
             IEnumerable<Ranking> query = times.OrderBy(time => time.time_int);
             foreach (Ranking rank in query)
                 Console.WriteLine(rank.username + " " + rank.time_int);
