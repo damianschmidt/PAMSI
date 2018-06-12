@@ -37,6 +37,7 @@
     <ApplicationIcon>warcaby.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -57,9 +58,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BlackPawn.cs" />
+    <Compile Include="BlackQueen.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="FieldType.cs" />
     <Compile Include="Ranking.cs" />
+    <Compile Include="Tree.cs" />
+    <Compile Include="WhitePawn.cs" />
+    <Compile Include="WhiteQueen.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

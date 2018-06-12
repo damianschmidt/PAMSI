@@ -135,72 +135,72 @@
                     <!-- Player 1 -->
                     <Label Content="1." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,60,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username1" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username1" Content="Username1" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,60,0,0" VerticalAlignment="Top"/>
-                    <Label Content="09:19" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username1_time" Content="09:19" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,60,90,0" VerticalAlignment="Top"/>
                     <!-- Player 2 -->
                     <Label Content="2." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,110,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username2" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username2" Content="Username2" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,110,0,0" VerticalAlignment="Top"/>
-                    <Label Content="10:11" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username2_time" Content="10:11" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,110,90,0" VerticalAlignment="Top"/>
                     <!-- Player 3 -->
                     <Label Content="3." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,160,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username3" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username3" Content="Username3" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,160,0,0" VerticalAlignment="Top"/>
-                    <Label Content="11:57" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username3_time" Content="11:57" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,160,90,0" VerticalAlignment="Top"/>
                     <!-- Player 4 -->
                     <Label Content="4." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,210,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username4" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username4" Content="Username4" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,210,0,0" VerticalAlignment="Top"/>
-                    <Label Content="12:28" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username4_time" Content="12:28" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,210,90,0" VerticalAlignment="Top"/>
                     <!-- Player 5 -->
                     <Label Content="5." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,260,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username5" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username5" Content="Username5" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,260,0,0" VerticalAlignment="Top"/>
-                    <Label Content="15:06" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username5_time" Content="15:06" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,260,90,0" VerticalAlignment="Top"/>
                     <!-- Player 6 -->
                     <Label Content="6." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,310,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username6" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username6" Content="Username6" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,310,0,0" VerticalAlignment="Top"/>
-                    <Label Content="15:49" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username6_time" Content="15:49" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,310,90,0" VerticalAlignment="Top"/>
                     <!-- Player 7 -->
                     <Label Content="7." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,360,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username7" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username7" Content="Username7" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,360,0,0" VerticalAlignment="Top"/>
-                    <Label Content="17:22" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username7_time" Content="17:22" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,360,90,0" VerticalAlignment="Top"/>
                     <!-- Player 8 -->
                     <Label Content="8." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,410,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username8" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username8" Content="Username8" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,410,0,0" VerticalAlignment="Top"/>
-                    <Label Content="19:52" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username8_time" Content="19:52" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,410,90,0" VerticalAlignment="Top"/>
                     <!-- Player 9 -->
                     <Label Content="9." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="80,460,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username9" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username9" Content="Username9" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,460,0,0" VerticalAlignment="Top"/>
-                    <Label Content="28:14" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username9_time" Content="28:14" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,460,90,0" VerticalAlignment="Top"/>
                     <!-- Player 10 -->
                     <Label Content="10." FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="65,510,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Username10" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
+                    <Label x:Name="username10" Content="Username10" FontFamily="Raleway" FontWeight="Light" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Left" Margin="150,510,0,0" VerticalAlignment="Top"/>
-                    <Label Content="32:31" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
+                    <Label x:Name="username10_time" Content="32:31" FontFamily="Open Sans" FontWeight="Regular" FontSize="30" Foreground="White" 
                            HorizontalAlignment="Right" Margin="0,510,90,0" VerticalAlignment="Top"/>
 
 

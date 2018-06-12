@@ -21,7 +21,8 @@ namespace warcaby
         private int playerScore, computerScore;
         private Button[,] buttonName;
         private MainWindow mainWindow;
-
+        public bool computerTurn = false;
+        public bool hitInterrupted = false;
         public Board(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -39,6 +40,9 @@ namespace warcaby
             playerScore = 0;
             computerScore = 0;
 
+            //board reset
+            computerTurn = false;
+
             //Create a new blank array of free cells
             boardStatus = new FieldType[8, 4];
 
@@ -55,7 +59,6 @@ namespace warcaby
                     }
                 }
             }
-
             #region Iterate every button on the grid
             int k = 1;
             this.mainWindow.FieldsGrid.Children.Cast<Button>().ToList().ForEach(button =>
@@ -80,6 +83,7 @@ namespace warcaby
             //Reset selected button property
             selectedPawn = false;
             selectedQueen = false;
+            DrawBoard();
         }
 
         public void Select(Button button, int row, int column)
@@ -105,7 +109,10 @@ namespace warcaby
                 selCol = column;
                 selectedPawn = true;
                 boardStatus[row, column] = FieldType.SelectedPawn;
-                CheckPossibleOfPawnMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfPawnMoves(row, column);
+                }
             }
             else if (boardStatus[row, column] == FieldType.WhitePawn)
             {
@@ -118,8 +125,12 @@ namespace warcaby
 
                 selRow = row;
                 selCol = column;
-                CheckPossibleOfPawnMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfPawnMoves(row, column);
+                }
             }
+
             else if (boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedPawn == true)
             {
                 RemovePossibleOfMoves();
@@ -145,11 +156,13 @@ namespace warcaby
                 selCol = column;
                 selectedQueen = true;
                 boardStatus[row, column] = FieldType.SelectedQueen;
-                CheckPossibleOfQueenMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfQueenMoves(row, column);
+                }
             }
             else if (boardStatus[row, column] == FieldType.WhiteQueen)
-            {
-                RemovePossibleOfMoves();
+            {                RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-selected.jpg", button);
                 boardStatus[row, column] = FieldType.SelectedQueen;
 
@@ -158,9 +171,12 @@ namespace warcaby
 
                 selRow = row;
                 selCol = column;
-                CheckPossibleOfQueenMoves(row, column);
+                if (hitInterrupted == false)
+                {
+                    CheckPossibleOfQueenMoves(row, column);
+                }
             }
-            else if(boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedQueen == true)
+            else if (boardStatus[row, column] != FieldType.WhitePawn && boardStatus[row, column] != FieldType.WhiteQueen && boardStatus[row, column] != FieldType.Move && boardStatus[row, column] != FieldType.HitMove && selectedQueen == true)
             {
                 RemovePossibleOfMoves();
                 boardStatus[selRow, selCol] = FieldType.WhiteQueen;
@@ -483,6 +499,7 @@ namespace warcaby
 
         public void Move(Button button, int row, int column)
         {
+           
             MoveWhitePawn(button, row, column);
             MoveWhiteQueen(button, row, column);
             ChangePawnToQueen();
@@ -490,8 +507,23 @@ namespace warcaby
         #region Partial funcions of Move
         private void MoveWhitePawn(Button button, int row, int column)
         {
-            if ((boardStatus[row, column] == FieldType.Move || boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
+          
+            if ((boardStatus[row, column] == FieldType.Move) && selectedPawn == true)
             {
+
+                RemovePossibleOfMoves();
+                LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
+                boardStatus[row, column] = FieldType.WhitePawn;
+
+                LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
+                boardStatus[selRow, selCol] = FieldType.Free;
+
+                selectedPawn = false;
+                computerTurn = true;
+            }
+            else if ((boardStatus[row, column] == FieldType.HitMove) && selectedPawn == true)
+            {
+                hitInterrupted = true;
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\checker-white.jpg", button);
                 boardStatus[row, column] = FieldType.WhitePawn;
@@ -500,12 +532,12 @@ namespace warcaby
                 boardStatus[selRow, selCol] = FieldType.Free;
 
                 CheckPossibleOfPawnHit(row, column);
-                if(CheckPosibilityOfMultiPawnHit(row, column) != true) selectedPawn = false;
+                if (CheckPossibleOfMultiPawnHit(row, column) != true) { hitInterrupted = false; selectedPawn = false; computerTurn = true; }
             }
         }
         private void MoveWhiteQueen(Button button, int row, int column)
         {
-            if ((boardStatus[row, column] == FieldType.Move || boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
+            if ((boardStatus[row, column] == FieldType.Move) && selectedQueen == true)
             {
                 RemovePossibleOfMoves();
                 LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
@@ -514,8 +546,21 @@ namespace warcaby
                 LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
                 boardStatus[selRow, selCol] = FieldType.Free;
 
+                selectedQueen = false;
+                computerTurn = true;
+            }
+            else if ((boardStatus[row, column] == FieldType.HitMove) && selectedQueen == true)
+            {
+                hitInterrupted = true;
+                RemovePossibleOfMoves();
+                LoadPicture(".\\img\\jpg\\queen-white.jpg", button);
+                boardStatus[row, column] = FieldType.WhiteQueen;
+
+                LoadPicture(".\\img\\jpg\\field-dark.jpg", buttonName[selRow, selCol]);
+                boardStatus[selRow, selCol] = FieldType.Free;
+
                 CheckPossibleOfQueenHit(row, column);
-                if (CheckPosibilityOfMultiQueenHit(row, column) != true) selectedQueen = false;
+                if (CheckPossibleOfMultiQueenHit(row, column) != true) { hitInterrupted = false; selectedQueen = false; computerTurn = true; }
             }
         }
         private void ChangePawnToQueen()
@@ -643,15 +688,16 @@ namespace warcaby
                 }
                 else if (rightside == true)
                 {
-                    if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
+                    if (almostTop != true)
                     {
-
-                        if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                        if (boardStatus[(row - 1), (column)] == FieldType.BlackPawn || boardStatus[(row - 1), (column)] == FieldType.BlackQueen)
                         {
-                            boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
-                            LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                            if (boardStatus[(row - 2), (column - 1)] == FieldType.Free)
+                            {
+                                boardStatus[(row - 2), (column - 1)] = FieldType.HitMove;
+                                LoadPicture(move, buttonName[(row - 2), (column - 1)]);
+                            }
                         }
-
                     }
                 }
                 else if (odd == true)
@@ -720,23 +766,43 @@ namespace warcaby
             {
                 if ((top == true) && (leftside == true))
                 {
-                        if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
-                        {
+                    if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
+                    {
+                        if(boardStatus[(row + 2), (column +1)] == FieldType.Free)
+                        { 
                             boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
                             LoadPicture(move, buttonName[(row + 2), (column + 1)]);
                         }
+                    }
+                }
+                else if ((top == true) && (rightside == true))
+                {
+                    if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
+                    {
+                        if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        }
+                    }
                 }
                 else if (top == true)
                 {
                     if (boardStatus[(row + 1), (column - 1)] == FieldType.BlackPawn || boardStatus[(row + 1), (column - 1)] == FieldType.BlackQueen)
                     {
-                        boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
-                        LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        if (boardStatus[(row + 2), (column - 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column - 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column - 1)]);
+                        }
                     }
                     if (boardStatus[(row + 1), (column)] == FieldType.BlackPawn || boardStatus[(row + 1), (column)] == FieldType.BlackQueen)
                     {
-                        boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
-                        LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        if (boardStatus[(row + 2), (column + 1)] == FieldType.Free)
+                        {
+                            boardStatus[(row + 2), (column + 1)] = FieldType.HitMove;
+                            LoadPicture(move, buttonName[(row + 2), (column + 1)]);
+                        }
                     }
                 }
                 else if((bottom == true) && (rightside == true))
@@ -961,13 +1027,11 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                 }
                 else
@@ -976,13 +1040,11 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                 }
             }
@@ -999,25 +1061,21 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row - 1), column]);
                         boardStatus[(row - 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else if ((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else if ((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else //Capturing left-down
                     {
                         LoadPicture(free, buttonName[(row - 1), selCol]);
                         boardStatus[(row - 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                 }
                 else
@@ -1026,25 +1084,21 @@ namespace warcaby
                     {
                         LoadPicture(free, buttonName[(row - 1), selCol]);
                         boardStatus[(row - 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else if((selCol - column) < 0 && (selRow - row) > 0) //Capturing right-up
                     {
                         LoadPicture(free, buttonName[(row + 1), selCol]);
                         boardStatus[(row + 1), selCol] = FieldType.Free;
-                        playerScore++;
                     }
                     else if((selCol - column) > 0 && (selRow - row) > 0) //Capturing left-up
                     {
                         LoadPicture(free, buttonName[(row + 1), column]);
                         boardStatus[(row + 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                     else //Capturing left-down
                     {
                         LoadPicture(free, buttonName[(row - 1), column]);
                         boardStatus[(row - 1), column] = FieldType.Free;
-                        playerScore++;
                     }
                 }
             }
@@ -1053,10 +1107,12 @@ namespace warcaby
 
         public int PlayerScore()
         {
+            CheckScore();
             return playerScore;
         }
         public int ComputerScore()
         {
+            CheckScore();
             return computerScore;
         }
 
@@ -1075,7 +1131,7 @@ namespace warcaby
             }
         }
 
-        private bool CheckPosibilityOfMultiPawnHit(int row, int column)
+        private bool CheckPossibleOfMultiPawnHit(int row, int column)
         {
             for (var i = 0; i < 8; i++)
             {
@@ -1093,7 +1149,7 @@ namespace warcaby
             return false;
         }
 
-        private bool CheckPosibilityOfMultiQueenHit(int row, int column)
+        private bool CheckPossibleOfMultiQueenHit(int row, int column)
         {
             for (var i = 0; i < 8; i++)
             {
@@ -1138,5 +1194,322 @@ namespace warcaby
                 }
             }
         }
+
+        private void CheckScore()
+        {
+            int whitePoint = 12;
+            int blackPoint = 12;
+
+            for(var i = 0; i < 8; i++)
+            {
+                for(var j = 0; j < 4; j++)
+                {
+                    if(boardStatus[i, j] == FieldType.BlackPawn || boardStatus[i, j] == FieldType.BlackQueen)
+                    {
+                        blackPoint--;
+                    }
+                    else if (boardStatus[i, j] == FieldType.WhitePawn || boardStatus[i, j] == FieldType.WhiteQueen || boardStatus[i, j] == FieldType.SelectedPawn || boardStatus[i, j] == FieldType.SelectedQueen)
+                    {
+                        whitePoint--;
+                    }
+                }
+            }
+
+            playerScore = blackPoint;
+            computerScore = whitePoint;
+        }
+
+        public void ComputerTurn()
+        {
+            AI();
+            ChangePawnToQueen();
+            DrawBoard();
+            
+        }
+        #region AI functions
+        private void AI()
+        {
+            Tree tree = new Tree();
+            Node[] listLevel1 = null;
+            Node[] listLevel2 = null;
+            Node[] listLevel3 = null;
+            bool block = false;
+            FieldType[,] board = BoardTo8x8(boardStatus);
+            #region MAX algorithm
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 8; j++)
+                {
+                    if (board[i, j] == FieldType.BlackPawn)
+                    {
+                        FieldType[,] copyBoard = new FieldType[8, 8];
+                        Array.Copy(board, copyBoard, board.Length);
+                        BlackPawn blackpawn = new BlackPawn(i, j, copyBoard);
+                        if (blackpawn.PossibilityOfMoving() == true)
+                        {
+                            List<Node> listNode = blackpawn.ReturnNode();
+                            foreach (var n in listNode)
+                            {
+                                tree.InsertLevel1(n);
+                            }
+                        }
+                    }
+                    else if (board[i, j] == FieldType.BlackQueen)
+                    {
+                        FieldType[,] copyBoard = new FieldType[8, 8];
+                        Array.Copy(board, copyBoard, board.Length);
+                        BlackQueen blackqueen = new BlackQueen(i, j, copyBoard);
+                        if (blackqueen.PossibilityOfMoving() == true)
+                        {
+                            List<Node> listNode = blackqueen.ReturnNode();
+                            foreach (var n in listNode)
+                            {
+                                tree.InsertLevel1(n);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            listLevel1 = tree.ToArrayLevel1();
+            if (listLevel1.Length == 0) //Check that is there end of game by blocking possible of moving
+            {
+                for (var i = 0; i < 8; i++)
+                {
+                    for (var j = 0; j < 8; j++)
+                    {
+                        if (board[i, j] == FieldType.BlackPawn)
+                        {
+                            board[i, j] = FieldType.Free;
+                            boardStatus = BoardTo8x4(board);
+                            block = true;
+                        }
+                        else if (board[i, j] == FieldType.BlackQueen)
+                        {
+                            board[i, j] = FieldType.Free;
+                            boardStatus = BoardTo8x4(board);
+                            block = true;
+                        }
+                    }
+                }
+            }
+            for (var k = 0; k < listLevel1.Length; k++)
+            {
+                #region MIN algorithm
+                for (var i = 0; i < 8; i++)
+                {
+                    for (var j = 0; j < 8; j++)
+                    {
+                        if (listLevel1[k].currentBoard[i, j] == FieldType.WhitePawn)
+                        {
+                            FieldType[,] copyBoard = new FieldType[8, 8];
+                            Array.Copy(listLevel1[k].currentBoard, copyBoard, listLevel1[k].currentBoard.Length);
+                            WhitePawn whitepawn = new WhitePawn(i, j, copyBoard, listLevel1[k]);
+                            if (whitepawn.PossibilityOfMoving() == true)
+                            {
+                                List<Node> listNode = whitepawn.ReturnNode();
+                                foreach (var n in listNode)
+                                {
+                                    n.score = n.score + listLevel1[k].score;
+                                    tree.InsertLevel2(n);
+                                }
+                            }
+                        }
+                        else if (listLevel1[k].currentBoard[i, j] == FieldType.WhiteQueen)
+                        {
+                            FieldType[,] copyBoard = new FieldType[8, 8];
+                            Array.Copy(listLevel1[k].currentBoard, copyBoard, listLevel1[k].currentBoard.Length);
+                            WhiteQueen whitequeen = new WhiteQueen(i, j, copyBoard, listLevel1[k]);
+                            if (whitequeen.PossibilityOfMoving() == true)
+                            {
+                                List<Node> listNode = whitequeen.ReturnNode();
+                                foreach (var n in listNode)
+                                {
+                                    n.score = n.score + listLevel1[k].score;
+                                    tree.InsertLevel2(n);
+                                }
+                            }
+                        }
+                    }
+                }
+                #endregion
+            }
+
+            listLevel2 = tree.ToArrayLevel2();
+            if (listLevel2.Length != 0)
+            {
+                Node min = listLevel2[0];
+                int counter = 0;
+                for (var k = 1; k < listLevel2.Length; k++)
+                {
+                    if (listLevel2[k].parent.score == listLevel2[k - 1].parent.score)
+                    {
+                        if (listLevel2[k].score < listLevel2[k - 1].score)
+                        {
+                            min = listLevel2[k];
+                        }
+                    }
+                    else
+                    {
+                        for(var m = counter; m < k; m++)
+                        {
+                            if(listLevel2[m].score == min.score)
+                            {
+                                #region MAX algorithm
+                                for (var i = 0; i < 8; i++)
+                                {
+                                    for (var j = 0; j < 8; j++)
+                                    {
+                                        if (min.currentBoard[i, j] == FieldType.BlackPawn)
+                                        {
+                                            FieldType[,] copyBoard = new FieldType[8, 8];
+                                            Array.Copy(listLevel2[m].currentBoard, copyBoard, listLevel2[m].currentBoard.Length);
+                                            BlackPawn blackpawn = new BlackPawn(i, j, copyBoard, listLevel2[m]);
+                                            if (blackpawn.PossibilityOfMoving() == true)
+                                            {
+                                                List<Node> listNode = blackpawn.ReturnNode();
+                                                foreach (var n in listNode)
+                                                {
+                                                    n.score = n.score + listLevel2[m].score;
+                                                    tree.InsertLevel3(n);
+                                                }
+                                            }
+                                        }
+                                        else if (min.currentBoard[i, j] == FieldType.BlackQueen)
+                                        {
+                                            FieldType[,] copyBoard = new FieldType[8, 8];
+                                            Array.Copy(listLevel2[m].currentBoard, copyBoard, listLevel2[m].currentBoard.Length);
+                                            BlackQueen blackqueen = new BlackQueen(i, j, copyBoard, listLevel2[m]);
+                                            if (blackqueen.PossibilityOfMoving() == true)
+                                            {
+                                                List<Node> listNode = blackqueen.ReturnNode();
+                                                foreach (var n in listNode)
+                                                {
+                                                    n.score = n.score + listLevel2[m].score;
+                                                    tree.InsertLevel3(n);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                        }
+                        counter = k;
+                        min = listLevel2[k];
+                    }
+
+                    if (k + 1 == listLevel2.Length)
+                    {
+                        for (var m = counter; m < k; m++)
+                        {
+                            if (listLevel2[m].score == min.score)
+                            {
+                                #region MAX algorithm
+                                for (var i = 0; i < 8; i++)
+                                {
+                                    for (var j = 0; j < 8; j++)
+                                    {
+                                        if (min.currentBoard[i, j] == FieldType.BlackPawn)
+                                        {
+                                            FieldType[,] copyBoard = new FieldType[8, 8];
+                                            Array.Copy(listLevel2[m].currentBoard, copyBoard, listLevel2[m].currentBoard.Length);
+                                            BlackPawn blackpawn = new BlackPawn(i, j, copyBoard, listLevel2[m]);
+                                            if (blackpawn.PossibilityOfMoving() == true)
+                                            {
+                                                List<Node> listNode = blackpawn.ReturnNode();
+                                                foreach (var n in listNode)
+                                                {
+                                                    n.score = n.score + listLevel2[m].score;
+                                                    tree.InsertLevel3(n);
+                                                }
+                                            }
+                                        }
+                                        else if (min.currentBoard[i, j] == FieldType.BlackQueen)
+                                        {
+                                            FieldType[,] copyBoard = new FieldType[8, 8];
+                                            Array.Copy(listLevel2[m].currentBoard, copyBoard, listLevel2[m].currentBoard.Length);
+                                            BlackQueen blackqueen = new BlackQueen(i, j, copyBoard, listLevel2[m]);
+                                            if (blackqueen.PossibilityOfMoving() == true)
+                                            {
+                                                List<Node> listNode = blackqueen.ReturnNode();
+                                                foreach (var n in listNode)
+                                                {
+                                                    n.score = n.score + listLevel2[m].score;
+                                                    tree.InsertLevel3(n);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                        }
+                    }
+                }
+            }
+            listLevel3 = tree.ToArrayLevel3();
+            if (listLevel3.Length != 0)
+            {
+                Node maxNode = listLevel3[0];
+                foreach (var n in tree.GetLevel3())
+                {
+                    if (n.score > maxNode.score)
+                    {
+                        maxNode = n;
+                    }
+                }
+
+                FieldType[,] newBoard = BoardTo8x4(maxNode.parent.parent.currentBoard);
+                boardStatus = newBoard;
+            }
+            else if (block == false)
+            {
+                FieldType[,] newBoard = BoardTo8x4(listLevel1[0].currentBoard);
+                boardStatus = newBoard;
+            }
+        }
+
+        private FieldType[,] BoardTo8x8(FieldType[,] board)
+        {
+            FieldType[,] newBoard = new FieldType[8, 8];
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        newBoard[i, 2 * j] = board[i, j];
+                    }
+                    else
+                    {
+                        newBoard[i, (2 * j) + 1] = board[i, j];
+                    }
+                }
+            }
+            return newBoard;
+        }
+
+        private FieldType[,] BoardTo8x4(FieldType[,] board)
+        {
+            FieldType[,] newBoard = new FieldType[8, 4];
+
+            for (var i = 0; i < 8; i++)
+            {
+                for (var j = 0; j < 4; j++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        newBoard[i, j] = board[i, 2 * j];
+                    }
+                    else
+                    {
+                        newBoard[i, j] = board[i, (2 * j) + 1];
+                    }
+                }
+            }
+            return newBoard;
+        }
+        #endregion
     }
 }
