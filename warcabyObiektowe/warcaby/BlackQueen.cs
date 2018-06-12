@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace warcaby
 {
@@ -33,9 +30,9 @@ namespace warcaby
         {
             this.column = column;
             this.row = row;
-            this.boardStatus = board;
-            this.parent = node;
-            this.listNode = new List<Node>();
+            boardStatus = board;
+            parent = node;
+            listNode = new List<Node>();
         }
 
         public bool PossibilityOfMoving()

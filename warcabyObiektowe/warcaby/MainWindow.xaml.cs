@@ -6,9 +6,6 @@ using System.Windows.Threading;
 
 namespace warcaby
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private DispatcherTimer dispatcherTimer = new DispatcherTimer();
@@ -17,7 +14,6 @@ namespace warcaby
         private Game game;
         private bool end;
         private Ranking ranking;
-
 
         public MainWindow()
         {
@@ -29,8 +25,6 @@ namespace warcaby
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
         {
             BoardTab.IsSelected = true;
-
-            //Init game
             Stopwatch();
             game.InitGame();
             end = game.EndOfGame();
@@ -39,8 +33,6 @@ namespace warcaby
         private void Ranking_Button_Click(object sender, RoutedEventArgs e)
         {
             RankingTab.IsSelected = true;
-
-            // SHOW RANK
             var results = ranking.ReadRanking();
             ranking.ShowRank(results);
 
@@ -58,7 +50,6 @@ namespace warcaby
 
         private void Restart_Button_Click(object sender, RoutedEventArgs e)
         {
-            //Init game again 
             Stopwatch();
             game.InitGame();
             end = game.EndOfGame();

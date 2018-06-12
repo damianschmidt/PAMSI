@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace warcaby
 {
@@ -23,7 +20,6 @@ namespace warcaby
         
         public void InitGame()
         {
-
             //Set stopwatch to 0
             ((Label)this.mainWindow.FindName("timer")).Content = "00:00";
 
@@ -49,7 +45,7 @@ namespace warcaby
             }
         }
 
-        private void Score()        // CZYTAJ KOMENTARZE NA DOLE DAMIANIE
+        private void Score()
         {
             string username, currentTime;
             playerScore = board.PlayerScore();
@@ -70,8 +66,8 @@ namespace warcaby
                     ranking.SaveResults(username, currentTime);
                     var readrank = ranking.ReadResults();
                     ranking.Sort(readrank, username, currentTime);
-                    var results = ranking.ReadRanking();    // Wczytywanie rankingu z sorted_ranking.txt
-                    ranking.ShowRank(results);              // Wyświetlanie rankingu
+                    var results = ranking.ReadRanking();
+                    ranking.ShowRank(results);
                 }
                 end = true;
             }

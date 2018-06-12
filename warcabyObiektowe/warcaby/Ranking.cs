@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace warcaby
@@ -16,17 +14,17 @@ namespace warcaby
         private MainWindow mainWindow;
         public Ranking(MainWindow mainWindow)
         {
-            this.username = "default";
-            this.time_int = 0;
-            this.time_str = "0";
+            username = "default";
+            time_int = 0;
+            time_str = "0";
             this.mainWindow = mainWindow;
         }
 
         public Ranking(string name, string timestr, int timeint)
         {
-            this.username = name;
-            this.time_str = timestr;
-            this.time_int = timeint;
+            username = name;
+            time_str = timestr;
+            time_int = timeint;
         }
         public void GetUsername(string username)
         {
@@ -55,7 +53,6 @@ namespace warcaby
         {
             string filename = "ranking.txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
-            string data = "default;99:99;";
             string readrank = File.ReadAllText(path);
             return readrank;
         }

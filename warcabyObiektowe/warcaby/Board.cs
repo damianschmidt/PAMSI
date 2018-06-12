@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -31,7 +29,7 @@ namespace warcaby
 
         private void InitButtonName()
         {
-            buttonName = new Button[,] { { this.mainWindow.B1, this.mainWindow.B2, this.mainWindow.B3, this.mainWindow.B4 }, { this.mainWindow.B5, this.mainWindow.B6, this.mainWindow.B7, this.mainWindow.B8 }, { this.mainWindow.B9, this.mainWindow.B10, this.mainWindow.B11, this.mainWindow.B12 }, { this.mainWindow.B13, this.mainWindow.B14, this.mainWindow.B15, this.mainWindow.B16 }, { this.mainWindow.B17, this.mainWindow.B18, this.mainWindow.B19, this.mainWindow.B20 }, { this.mainWindow.B21, this.mainWindow.B22, this.mainWindow.B23, this.mainWindow.B24 }, { this.mainWindow.B25, this.mainWindow.B26, this.mainWindow.B27, this.mainWindow.B28 }, { this.mainWindow.B29, this.mainWindow.B30, this.mainWindow.B31, this.mainWindow.B32 } };
+            buttonName = new Button[,] { {mainWindow.B1, mainWindow.B2, mainWindow.B3, mainWindow.B4 }, { mainWindow.B5, mainWindow.B6, mainWindow.B7, mainWindow.B8 }, { mainWindow.B9, mainWindow.B10, mainWindow.B11, mainWindow.B12 }, { mainWindow.B13, mainWindow.B14, mainWindow.B15, mainWindow.B16 }, { mainWindow.B17, mainWindow.B18, mainWindow.B19, mainWindow.B20 }, { mainWindow.B21, mainWindow.B22, mainWindow.B23, mainWindow.B24 }, { mainWindow.B25, mainWindow.B26, mainWindow.B27, mainWindow.B28 }, { mainWindow.B29, mainWindow.B30, mainWindow.B31, mainWindow.B32 } };
         }
 
         public void InitBoard()
