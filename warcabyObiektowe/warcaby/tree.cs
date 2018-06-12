@@ -62,6 +62,11 @@ namespace warcaby
             return Level1;
         }
 
+        public List<Node> GetLevel2()
+        {
+            return Level2;
+        }
+
         public List<Node> GetLevel3()
         {
             return Level3;

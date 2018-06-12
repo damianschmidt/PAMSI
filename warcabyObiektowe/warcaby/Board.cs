@@ -1349,9 +1349,9 @@ namespace warcaby
                     }
                     else
                     {
-                        for(var m = counter; m < k; m++)
+                        for (var m = counter; m < k; m++)
                         {
-                            if(listLevel2[m].score == min.score)
+                            if (listLevel2[m].score == min.score)
                             {
                                 #region MAX algorithm
                                 for (var i = 0; i < 8; i++)
@@ -1447,7 +1447,20 @@ namespace warcaby
                 }
             }
             listLevel3 = tree.ToArrayLevel3();
-            if (listLevel3.Length != 0)
+            if (block == false && computerScore == 11)
+            {
+                Node maxNode = listLevel1[0];
+                foreach (var n in tree.GetLevel1())
+                {
+                    if (n.score > maxNode.score)
+                    {
+                        maxNode = n;
+                    }
+                }
+                FieldType[,] newBoard = BoardTo8x4(maxNode.currentBoard);
+                boardStatus = newBoard;
+            }
+            else if (listLevel3.Length != 0)
             {
                 Node maxNode = listLevel3[0];
                 foreach (var n in tree.GetLevel3())
@@ -1463,7 +1476,15 @@ namespace warcaby
             }
             else if (block == false)
             {
-                FieldType[,] newBoard = BoardTo8x4(listLevel1[0].currentBoard);
+                Node maxNode = listLevel2[0];
+                foreach (var n in tree.GetLevel2())
+                {
+                    if (n.score > maxNode.score)
+                    {
+                        maxNode = n;
+                    }
+                }
+                FieldType[,] newBoard = BoardTo8x4(maxNode.parent.currentBoard);
                 boardStatus = newBoard;
             }
         }

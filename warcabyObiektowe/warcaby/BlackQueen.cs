@@ -14,15 +14,15 @@ namespace warcaby
         private List<Node> listNode;
 
         #region Points 
-        private int type = 10;
+        private int type = 5;
         private int move = 2;
         private int moveEdge = 3;
-        private int hit = 25;
-        private int hitEdge = 35;
-        private int hitMulti = 35;
-        private int edge3 = 4;
-        private int edge2 = 2;
-        private int edge1 = 0;
+        private int hit = 35;
+        private int hitEdge = 45;
+        private int hitMulti = 45;
+        private int edge3 = 0;
+        private int edge2 = 1;
+        private int edge1 = 2;
         #endregion
 
         // Constructor

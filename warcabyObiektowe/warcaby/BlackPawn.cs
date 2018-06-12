@@ -18,10 +18,10 @@ namespace warcaby
         private int move = 1;
         private int moveMid = 2;
         private int moveEdge = 3;
-        private int hit = 20;
-        private int hitMid = 25;
-        private int hitEdge = 30;
-        private int hitMulti = 30;
+        private int hit = 30;
+        private int hitMid = 40;
+        private int hitEdge = 45;
+        private int hitMulti = 40;
         private int level4 = 10;
         private int level3 = 4;
         private int level2 = 2;
