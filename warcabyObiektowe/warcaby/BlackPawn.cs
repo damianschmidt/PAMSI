@@ -22,8 +22,8 @@ namespace warcaby
         private int hitMid = 40;
         private int hitEdge = 45;
         private int hitMulti = 40;
-        private int level4 = 10;
-        private int level3 = 4;
+        private int level4 = 15;
+        private int level3 = 6;
         private int level2 = 2;
         private int level1 = 0;
         private int edge3 = 4;

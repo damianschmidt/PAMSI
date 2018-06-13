@@ -21,8 +21,8 @@ namespace warcaby
         private int hitEdge = 45;
         private int hitMulti = 45;
         private int edge3 = 0;
-        private int edge2 = 1;
-        private int edge1 = 2;
+        private int edge2 = 4;
+        private int edge1 = 6;
         #endregion
 
         // Constructor
@@ -53,13 +53,13 @@ namespace warcaby
 
             if (column != 0 && column != 7 && row != 0 && row != 7)
             {
-                if (boardStatus[row + 1, column - 1] == FieldType.Free)
+                if (boardStatus[row - 1, column + 1] == FieldType.Free)
                 {
                     points = move;
 
                     FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row + 1, column - 1] = FieldType.BlackQueen;
+                    newBoard[row - 1, column + 1] = FieldType.BlackQueen;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
@@ -77,13 +77,13 @@ namespace warcaby
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node
                     listNode.Add(newNode); // Add to list of possible moves
                 }
-                if (boardStatus[row - 1, column + 1] == FieldType.Free)
+                if (boardStatus[row + 1, column - 1] == FieldType.Free)
                 {
                     points = move;
 
                     FieldType[,] newBoard = Clone(boardStatus);
                     newBoard[row, column] = FieldType.Free;
-                    newBoard[row - 1, column + 1] = FieldType.BlackQueen;
+                    newBoard[row + 1, column - 1] = FieldType.BlackQueen;
 
                     int newScore = points + CountScore();
                     Node newNode = new Node(parent, newBoard, newScore); // Make new node

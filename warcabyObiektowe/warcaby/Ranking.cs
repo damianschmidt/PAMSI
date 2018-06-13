@@ -34,7 +34,7 @@ namespace warcaby
         public void SaveResults(string username, string time)   // Save results into ...\bin\Debug\Data\ranking.txt
         {
             string filename = "ranking.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
             string data = username + ";" + time + ";";
             string data2 = "default;99:99;";
 
@@ -52,7 +52,7 @@ namespace warcaby
         public string ReadResults()
         {
             string filename = "ranking.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
             string readrank = File.ReadAllText(path);
             return readrank;
         }
@@ -78,7 +78,7 @@ namespace warcaby
                 Console.WriteLine(rank.username + " " + rank.time_int);
 
             string filename = "sorted_ranking.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
 
             if (File.Exists(path))
             {
@@ -112,7 +112,7 @@ namespace warcaby
         public string ReadRanking()
         {
             string filename = "sorted_ranking.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", filename);
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
             string data = "default;99:99;";
             if (!File.Exists(path))
             {
