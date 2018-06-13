@@ -17,9 +17,9 @@ namespace warcaby
         private int type = -5;
         private int move = -2;
         private int moveEdge = -3;
-        private int hit = -20;
-        private int hitEdge = -30;
-        private int hitMulti = -30;
+        private int hit = -30;
+        private int hitEdge = -40;
+        private int hitMulti = -40;
         private int edge3 = -6;
         private int edge2 = -4;
         private int edge1 = 0;
